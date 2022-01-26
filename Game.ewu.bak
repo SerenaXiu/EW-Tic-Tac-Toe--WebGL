@@ -1,0 +1,1438 @@
+﻿$version 11.00
+
+$rect <20,220,220,260>
+$output false
+class GameField : Core::Group
+{
+  $rect <260,350,440,390>
+  inherited method Init()
+  {
+    // TO DO: Write your code here ... 
+    vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+
+  }
+
+  $rect <270,0,470,40>
+  inherited property Bounds = <0,0,240,320>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  // To do:
+  // 
+  // - Adjust the visible size of your component (the thick blue border).
+  // 
+  // - The simplest way to compose the appearance of the component is to use the \
+  // 'Views' and 'Widget Sets' from the Gallery.
+  // 
+  // - To react to touch or keyboard events use the templates from the Gallery folder \
+  // 'Event Handlers'.
+  // 
+  // - To perform transitions (animations) use the templates from the Gallery folder \
+  // 'Effects'.
+  // 
+  // - To implement the interface of the component use the 'Property' template from \
+  // the Gallery folder 'Chora'.
+  // 
+  // - To store values use the 'Variable' and 'Array' templates available in the \
+  // Gallery folder 'Chora'.
+  // 
+  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
+  // in the Gallery folder 'Chora'.
+  // 
+  // - In the method 'UpdateViewState()' you can put code to update the state of \
+  // views enclosed in your component.
+  // 
+  // - In the method 'UpdateLayout()' you can put code to perform sophisticated layout \
+  // calculation for enclosed views.
+  note legend Note1
+  {
+    attr Bounds = <0,500,780,820>;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line Line
+  {
+    preset Point2 = <94,235>;
+    preset Point1 = <94,85>;
+    preset Width = 2;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line Line1
+  {
+    preset Point2 = <144,235>;
+    preset Point1 = <144,85>;
+    preset Width = 2;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line Line2
+  {
+    preset Point2 = <194,135>;
+    preset Point1 = <44,135>;
+    preset Width = 2;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Line Line3
+  {
+    preset Point2 = <194,185>;
+    preset Point1 = <44,185>;
+    preset Width = 2;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton PushButton
+  {
+    preset Bounds = <1005,176,1079,226>;
+    preset OnPress = resetGame;
+    preset Label = "Reset";
+    preset Appearance = WidgetSet::PushButton_Medium;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_00
+  {
+    preset Bounds = <44,85,94,135>;
+    preset Enabled = true;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_01
+  {
+    preset Bounds = <94,85,144,135>;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_02
+  {
+    preset Bounds = <144,85,194,135>;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_10
+  {
+    preset Bounds = <44,135,94,185>;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_11
+  {
+    preset Bounds = <94,135,144,185>;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_12
+  {
+    preset Bounds = <144,135,194,185>;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_20
+  {
+    preset Bounds = <44,185,94,235>;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_21
+  {
+    preset Bounds = <95,185,145,235>;
+  }
+
+  $rect <20,20,160,60>
+  object Game::FieldItem vField_22
+  {
+    preset Bounds = <144,185,194,235>;
+  }
+
+  $rect <939,41,1139,81>
+  slot resetGame
+  {
+    //var int32 col = 0;
+    //var int32 row = 0;
+
+    // Assuming, there is a two-dimension array 'tiles' defined with
+    // its Dimension configured as '10, 20', then the following loop
+    // will iterate through all items of the array and initialize
+    // them with random values:
+    /*for ( row = 0; row < 3; row++ )
+      for ( col = 0; col < 3;  col++ )
+        fieldContentArray[ row, col ].FieldContent = "N";     */
+
+      
+    //vField_00.vFieldContent.String = "";
+
+    // vCurrentPlayer
+    //vCurrentPlayerTitle.String = "Current Player: " + paramCurrentPlayer.PlayerName ;
+
+    //THIS WORKS
+    //cleanGameFields();
+    //reenableGameFields();
+        
+
+
+
+
+  }
+
+  $rect <500,300,700,340>
+  array Game::FieldItem fieldContentArray[ 3,3 ] =
+  (
+    Default[0, 0] = vField_00;
+    Default[0, 1] = vField_01;
+    Default[0, 2] = vField_02;
+    Default[1, 0] = vField_10;
+    Default[1, 1] = vField_11;
+    Default[1, 2] = vField_12;
+    Default[2, 0] = vField_20;
+    Default[2, 1] = vField_21;
+    Default[2, 2] = vField_22;
+  );
+
+  $rect <500,130,700,170>
+  method void changeCurrentPlayer( arg Game::Players paramCurrentPlayer )
+  {
+    if (pCurrentPlayer == Player1){
+      pCurrentPlayer = Player2;
+
+
+      }
+    else {
+      pCurrentPlayer = Player1;}
+
+    //vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.PlayerName ;
+
+
+
+    //Game::GameField.FieldContent = CurrentPlayer.PlayerIcon;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text vCurrentPlayerTitle
+  {
+    preset Bounds = <0,51,240,81>;
+    preset String = "Current Player: P1";
+    preset Font = Resources::FontSmall;
+  }
+
+  $rect <270,50,470,90>
+  object Game::Players Player1;
+
+  $rect <270,90,470,130>
+  object Game::Players Player2
+  {
+    preset PlayerName = "P2";
+    preset PlayerIcon = "O";
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text vCounter
+  {
+    preset Bounds = <0,51,50,81>;
+    preset String = "0";
+    preset Font = Resources::FontLarge;
+  }
+
+  $rect <497,177,697,217>
+  property int32 Counter;
+
+  $rect <497,217,697,257>
+  onset Counter
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Counter == value )
+      return;
+
+    // Remember the property's new value.
+    pure Counter = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+    vCounter.String = Counter;
+  }
+
+  $rect <497,257,697,297>
+  onget Counter
+  {
+    return pure Counter;
+  }
+
+  $rect <500,410,700,450>
+  slot TestMethod2
+  {
+    //CounterUpper();
+
+    //fieldContentArray[0,0].FieldContent = CurrentPlayer.PlayerIcon;
+
+    changeCurrentPlayer(Player2);
+    vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton TestButton
+  {
+    preset Bounds = <165,1,240,51>;
+    preset OnPress = TestMethod2;
+    preset Label = "Test2";
+    preset Appearance = WidgetSet::PushButton_Medium;
+  }
+
+  $rect <270,140,470,180>
+  property Game::Players pCurrentPlayer = Player1;
+
+  $rect <270,180,470,220>
+  onset pCurrentPlayer
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure pCurrentPlayer == value )
+      return;
+
+    // Remember the property's new value.
+    pure pCurrentPlayer = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+    vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.PlayerName ;
+
+  }
+
+  $rect <270,220,470,260>
+  onget pCurrentPlayer
+  {
+    return pure pCurrentPlayer;
+  }
+
+  $rect <939,121,1139,161>
+  method void reenableGameFields()
+  {
+    vField_00.SimpleTouchHandler.Enabled = true;
+    vField_01.SimpleTouchHandler.Enabled = true;
+    vField_02.SimpleTouchHandler.Enabled = true;
+    vField_10.SimpleTouchHandler.Enabled = true;
+    vField_11.SimpleTouchHandler.Enabled = true;
+    vField_12.SimpleTouchHandler.Enabled = true;
+    vField_20.SimpleTouchHandler.Enabled = true;
+    vField_21.SimpleTouchHandler.Enabled = true;
+    vField_22.SimpleTouchHandler.Enabled = true;
+
+  }
+
+  $rect <939,81,1139,121>
+  method void cleanGameFields()
+  {
+    //fieldContentArray[0,0].FieldContent == "X";
+
+    vField_00.FieldContent = "";
+    vField_01.FieldContent = "";
+    vField_02.FieldContent = "";
+    vField_10.FieldContent = "";
+    vField_11.FieldContent = "";
+    vField_12.FieldContent = "";
+    vField_20.FieldContent = "";
+    vField_21.FieldContent = "";
+    vField_22.FieldContent = "";
+
+  }
+
+  // Reset Logic (old)
+  note group Note
+  {
+    attr Bounds = <930,1,1150,260>;
+  }
+
+  $rect <510,50,710,90>
+  method void CounterUpper()
+  {
+    //Counter += 1;
+  }
+
+  $rect <520,-10,720,30>
+  slot smCounterUpper
+  {
+    Counter += 1;
+  }
+
+  $rect <20,20,160,60>
+  object WidgetSet::PushButton TestButton1
+  {
+    preset Bounds = <0,0,75,50>;
+    preset OnPress = TestMethod1;
+    preset Label = "Test1";
+    preset Appearance = WidgetSet::PushButton_Medium;
+  }
+
+  $rect <500,370,700,410>
+  slot TestMethod1
+  {
+    //CounterUpper();
+
+    //fieldContentArray[0,0].FieldContent = CurrentPlayer.PlayerIcon;
+
+    changeCurrentPlayer(Player1);
+
+  }
+}
+
+// To do:
+// 
+// - Open the 'Application' component for editing. It represents your entire GUI. \
+// Use widgets, views, event handlers and effects from the Gallery to assemble there \
+// your desired GUI look and feel.
+// 
+// - Create your own GUI components, widgets, panels, etc. The Gallery folder 'Component \
+// Templates' contains for this purpose various templates you can simply add to the \
+// unit and thus start your own component development.
+// 
+// - You can add your own bitmap and font resources to the unit. Use the templates \
+// 'Bitmap Resource' and 'Font Resource' from the Gallery folder 'Resources' for \
+// this purpose.
+// 
+// - You can add here also constants to store e.g. multilingual text fragments. Use \
+// for this purpose the template 'Constant' from the Gallery folder 'Chora'.
+// 
+// - To add an interface for communication with the target device use the template \
+// 'Device Interface' from the Gallery folder 'Device'.
+note legend Note1
+{
+  attr Bounds = <990,170,1270,480>;
+}
+
+// This is a font resource.
+$rect <490,279,690,319>
+$output false
+resource Resources::Font Font
+{
+  attr fontname FontName = Arial;
+  attr fontheight Height = 32;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = false;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontheightmode HeightMode = Compatible;
+  attr fontrowdistance RowDistance;
+}
+
+$rect <240,610,440,650>
+inline Inline
+{
+  /*
+
+    TO DO:
+
+    Include external header files or add type and function declarations needed
+    in the implementation of Application::DeviceClass. For example:
+
+      #include "DeviceDriver.h"
+
+      #include "your_middleware_api.h"
+
+      void Your_Middleware_Some_Function( int aSomeArg );
+
+  */
+}
+
+$rect <20,610,220,650>
+$output false
+class DeviceClass : Templates::DeviceClass
+{
+  $rect <30,80,230,120>
+  inherited method Done()
+  {
+    // The following section is intended to perform de-initialization-related operations
+    // in the underlying device or middleware. Consequently, the section is taken in
+    // account only when generating code (not during prototyping).
+    $if !$prototyper
+      var object thisObject = this;
+
+      /*
+         TO DO:
+
+         The following native statement is intended to enclose code to communicate with
+         your device API. The variable 'thisObject' contains a pointer to the actually
+         de-initialized Application::DeviceClass object. Use the 'thisObject' pointer to
+         e.g. de-register the object from the middleware if you have registered it
+         beforehand.
+         
+      */
+
+      native ( thisObject )
+      {
+        /*
+           TO DO:
+
+           Depending on your application case you call functions of the underlying
+           middleware (or access the device directly) in order to perform the necessary
+           de-initialization steps. For example, you invoke some 'C' function:
+
+             YourDevice_DeInitialize();
+
+           IMPORTANT:
+           ----------
+
+           The variable 'thisObject' represents the actually de-initialized instance of the
+           Application::DeviceClass. If you have stored this object at the initialization
+           time (in the 'Init' method) in some global C variable or registered it by the
+           middleware, it is important to perform now the opposite operation. Set the
+           global variable to NULL or de-register 'thisObject' object from the middleware.
+           
+        */
+      }
+    $endif
+  }
+
+  $rect <30,40,230,80>
+  inherited method Init()
+  {
+    // The following section is intended to perform initialization-related operations
+    // in the underlying device or middleware. Consequently, the section is taken in
+    // account only when generating code (not during prototyping).
+    $if !$prototyper
+      var object thisObject = this;
+
+      /*
+         TO DO:
+
+         The following native statement is intended to enclose code to communicate with
+         your device API. The variable 'thisObject' contains a pointer to the actually
+         initialized Application::DeviceClass object. Use the 'thisObject' pointer to
+         e.g. register the object by the middleware as receiver of events, etc.
+         
+      */
+
+      native ( thisObject )
+      {
+        /*
+           TO DO:
+
+           Depending on your application case you call functions of the underlying
+           middleware (or access the device directly) in order to perform the necessary
+           initialization steps. For example, you invoke some 'C' function:
+
+             YourDevice_Initialize();
+
+           The variable 'thisObject' represents the actually initialized instance of the
+           Application::DeviceClass. You can store this variable e.g. in the middleware
+           and use it whenever the middleware needs to notify the GUI application about
+           some state alternation or events. In this manner, the middleware will be able
+           to invoke methods of the interface device object.
+
+           For example, you can store 'thisObject' in some global C variable:
+
+             // Declaration of the global C variable
+             XObject theDeviceObject;
+
+             // Store the instance in the global variable
+             theDeviceObject = thisObject;
+
+           Later use the global variable e.g. to provide the GUI application with events:
+
+             ApplicationDeviceClass__TriggerSomeEvent( theDeviceObject );
+
+           IMPORTANT:
+           ----------
+
+           If you store 'thisObject' for later use, don't forget to implement the opposite
+           operation in the method 'Done'. Concrete, 'Done' should set the global variable
+           again to the value NULL.
+
+        */
+      }
+    $endif
+  }
+
+  // Device classes are assembled from 'Commands', 'Properties' and 'System Events'. \
+  // For this purpose use the following prepared templates from the Gallery folder \
+  // 'Device':
+  // 
+  // Command - method to trigger actions in the underlying device or query data from \
+  // the device.
+  // 
+  // Property - variable to represent or modify a setting or state value existing \
+  // within the underlying device.
+  // 
+  // System Event - represents an event or notifications the underlying device may \
+  // report.
+  // 
+  // For more details please visit: https://doc.embedded-wizard.de/device-class-and-device-driver
+  note legend Note4
+  {
+    attr Bounds = <10,230,1100,400>;
+  }
+
+  // The method 'Init' is executed just in the moment when new instance of 'Application::DeviceClass' \
+  // is created. It is suitable to:
+  // - initialize the hardware represented by the interface.
+  // - register the instance by the middleware to receive updates and events.
+  // - open files, network connections or other system resources needed by the interface.
+  // 
+  // The method 'Done' is executed just in the moment when an instance of 'Application::DeviceClass' \
+  // is disposed. It is suitable to:
+  // - de-initialize the underlying hardware.
+  // - de-register the instance from the underlying middleware.
+  // - close files, network connections and other no longer needed system resources.
+  // 
+  // If your application case doesn't need the initialization or de-initialization, \
+  // feel free to delete the methods 'Init' or/and 'Done'.
+  note legend Note3
+  {
+    attr Bounds = <320,0,1100,220>;
+  }
+
+  note arrow Note2
+  {
+    attr Point1 = <250,50>;
+    attr Point2 = <320,50>;
+  }
+
+  // Constructor and Destructor
+  note group Note1
+  {
+    attr Bounds = <10,0,250,140>;
+  }
+}
+
+$rect <20,660,220,700>
+autoobject Game::DeviceClass Device;
+
+// Device Interface
+note group Note2
+{
+  attr Bounds = <10,550,940,900>;
+}
+
+// The class 'Application::DeviceClass' implements the interface between the GUI \
+// application and the device. Within the class you can react to system events sent \
+// by the device, exchange data with the device or send commands to the device. You \
+// are completely free in the design of this interface.
+// 
+// The object 'Device' represents the instance of the device interface. It exists \
+// for your convenience. As an autoobject it is globally available for all GUI components \
+// within your project.
+// 
+// The inline code member allows you to include external header files or add type \
+// definitions needed by the implementation of 'Application::DeviceClass'.
+// 
+// More details inside the members.
+// See also: https://doc.embedded-wizard.de/device-class-and-device-driver
+note legend Note
+{
+  attr Bounds = <480,610,930,880>;
+}
+
+$rect <990,490,1190,530>
+$output false
+autoobject Views::Group Group
+{
+  preset Bounds = <0,0,100,100>;
+}
+
+// Screens
+note group Note3
+{
+  attr Bounds = <10,140,230,410>;
+}
+
+$rect <251,180,451,220>
+$output false
+class FieldItem : Core::Group
+{
+  $rect <310,-60,490,-20>
+  inherited method Init()
+  {
+    // TO DO: Write your code here ... 
+
+  }
+
+  $rect <0,230,200,270>
+  inherited property Bounds = <0,0,50,50>;
+
+  $rect <10,340,210,380>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,300,210,340>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  // To do:
+  // 
+  // - Adjust the visible size of your component (the thick blue border).
+  // 
+  // - The simplest way to compose the appearance of the component is to use the \
+  // 'Views' and 'Widget Sets' from the Gallery.
+  // 
+  // - To react to touch or keyboard events use the templates from the Gallery folder \
+  // 'Event Handlers'.
+  // 
+  // - To perform transitions (animations) use the templates from the Gallery folder \
+  // 'Effects'.
+  // 
+  // - To implement the interface of the component use the 'Property' template from \
+  // the Gallery folder 'Chora'.
+  // 
+  // - To store values use the 'Variable' and 'Array' templates available in the \
+  // Gallery folder 'Chora'.
+  // 
+  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
+  // in the Gallery folder 'Chora'.
+  // 
+  // - In the method 'UpdateViewState()' you can put code to update the state of \
+  // views enclosed in your component.
+  // 
+  // - In the method 'UpdateLayout()' you can put code to perform sophisticated layout \
+  // calculation for enclosed views.
+  note legend Note1
+  {
+    attr Bounds = <220,100,1000,420>;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,0>;
+    preset Point3 = <50,0>;
+    preset Point2 = <50,50>;
+    preset Point1 = <0,50>;
+    preset OnPress = OnTouchFieldEvent;
+  }
+
+  $rect <0,90,200,130>
+  property string FieldContent = "N";
+
+  $rect <0,130,200,170>
+  onset FieldContent
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure FieldContent == value )
+      return;
+
+    // Remember the property's new value.
+    pure FieldContent = value;
+
+    // TO DO:
+    //  
+    // Now you can handle the alternation of the property.
+
+    // it updates the vFieldContent to FieldContent
+    vFieldContent.String = FieldContent;
+
+    // disable touchhandler after assigning once.
+    SimpleTouchHandler.Enabled = false;
+  }
+
+  $rect <0,170,200,210>
+  onget FieldContent
+  {
+    return pure FieldContent;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text vFieldContent
+  {
+    preset Bounds = <0,1,50,50>;
+    preset String = "";
+    preset Font = Resources::FontExtraLarge;
+  }
+
+  $rect <100,10,300,50>
+  slot OnTouchFieldEvent
+  {
+    // this sloth method is triggered, when player touches the field
+
+
+
+    // disable touchhandler after 1 time
+    //SimpleTouchHandler.Enabled = false;
+    FieldContent = CurrentPlayer.PlayerIcon;
+
+    // down below works!
+    //FieldContent = "B";
+
+  }
+
+  $rect <310,10,510,50>
+  slot ChangeFieldContent
+  {
+    sender; /* the method is called from the sender object */
+  }
+
+  $rect <100,-60,300,-20>
+  var Game::Players CurrentPlayer = Players.PlayerIcon;
+
+  $rect <-98,-59,102,-19>
+  object Game::Players Players
+  {
+    preset PlayerName = "P2";
+    preset PlayerIcon = "O";
+  }
+}
+
+$rect <490,489,690,529>
+$output false
+autoobject Views::Image field_icon_sun
+{
+  preset Bounds = <0,0,50,50>;
+  preset Color = Game::Nude;
+  preset FrameNumber = 20;
+  preset Bitmap = Resources::SymbolIconsMedium;
+}
+
+$rect <490,450,690,490>
+$output false
+autoobject Views::Image field_icon_moon
+{
+  preset Bounds = <0,0,50,50>;
+  preset Color = Game::Nude;
+  preset FrameNumber = 21;
+  preset Bitmap = Resources::SymbolIconsMedium;
+}
+
+$rect <490,231,690,271>
+$output false
+resource Resources::Bitmap field_icon_cross
+{
+  attr bitmapfile FileName = C:\Users\seren\Downloads\field_icon_cross.png;
+  attr bitmapdithering Dithering = Auto;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Native;
+  attr bitmapmode Mode = Default;
+}
+
+$rect <490,190,690,230>
+$output false
+resource Resources::Bitmap field_icon_circle
+{
+  attr bitmapfile FileName = C:\Users\seren\Downloads\field_icon_circle.png;
+  attr bitmapdithering Dithering = Auto;
+  attr framesize FrameSize;
+  attr framedelay FrameDelay;
+  attr bitmapformat Format = Native;
+  attr bitmapmode Mode = Default;
+}
+
+// GameField Variants
+note group Note5
+{
+  attr Bounds = <10,420,460,540>;
+}
+
+// Gamefield Widgets
+note group Note6
+{
+  attr Bounds = <240,140,460,410>;
+}
+
+// Fonts, Bitmaps and Colors
+note group Note7
+{
+  attr Bounds = <470,140,919,410>;
+}
+
+// Autoobjects
+note group Note8
+{
+  attr Bounds = <470,420,920,540>;
+}
+
+$rect <710,190,910,230>
+$output false
+const color Peach = #E6B794FF;
+
+// Color Scheme
+// 
+// #E6B794 Peach
+// #B8DDD6 Mint
+// #E0EBE5 Seafoam Green
+// #AD9787 Nude
+// #FFFFFF White
+note legend Note4
+{
+  attr Bounds = <999,550,1229,710>;
+}
+
+$rect <710,230,910,270>
+$output false
+const color Mint = #B8DDD6FF;
+
+$rect <710,270,910,310>
+$output false
+const color SeafoamGreen = #E0EBE5FF;
+
+$rect <710,310,910,350>
+$output false
+const color Nude = #AD9787FF;
+
+$rect <710,350,910,390>
+$output false
+const color White = #FFFFFFFF;
+
+$rect <700,450,900,490>
+$output false
+autoobject Views::Image field_icon_time
+{
+  preset Bounds = <0,0,50,50>;
+  preset Color = Game::Nude;
+  preset FrameNumber = 13;
+  preset Bitmap = Resources::SymbolIconsMedium;
+}
+
+$rect <490,330,690,370>
+$output false
+autoobject WidgetSet::PushButtonConfig PushButtonConfig
+{
+  preset LabelColorActive = Game::White;
+  preset LabelColorFocused = Game::White;
+  preset LabelColorDisabled = Game::White;
+  preset LabelColorDefault = Game::White;
+  preset IconTintActive = Game::Peach;
+  preset IconTintFocused = Game::Peach;
+  preset IconTintDisabled = Game::Peach;
+  preset IconTintDefault = Game::Peach;
+  preset LabelFont = Resources::FontSmall;
+  preset FaceTintActive = Game::Peach;
+  preset FaceTintFocused = Game::Peach;
+  preset FaceTintDisabled = Game::Peach;
+  preset FaceTintDefault = Game::Peach;
+  preset FaceActive = WidgetSet::PushButtonMedium;
+  preset FaceFocused = WidgetSet::PushButtonMedium;
+  preset FaceDisabled = WidgetSet::PushButtonMedium;
+  preset FaceDefault = WidgetSet::PushButtonMedium;
+}
+
+$rect <250,220,450,260>
+$output false
+class Players
+{
+  $rect <40,40,240,80>
+  property string PlayerName = "P1";
+
+  $rect <40,80,240,120>
+  onset PlayerName
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure PlayerName == value )
+      return;
+
+    // Remember the property's new value.
+    pure PlayerName = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <40,120,240,160>
+  onget PlayerName
+  {
+    return pure PlayerName;
+  }
+
+  $rect <260,40,460,80>
+  property string PlayerIcon = "X";
+
+  $rect <260,80,460,120>
+  onset PlayerIcon
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure PlayerIcon == value )
+      return;
+
+    // Remember the property's new value.
+    pure PlayerIcon = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <260,120,460,160>
+  onget PlayerIcon
+  {
+    return pure PlayerIcon;
+  }
+}
+
+$rect <20,180,220,220>
+$output false
+class GameTitle : Core::Group
+{
+  $rect <10,440,210,480>
+  inherited property Bounds = <0,0,240,320>;
+
+  $rect <10,390,210,430>
+  inherited method UpdateLayout()
+  {
+    // Always invoke the inherited method.
+    super( aSize );
+
+    /*
+
+      HINT:
+
+      This method exists for sophisticated layout calculation. Please note, that in 
+      most cases it is completely sufficient to use the views property 'Layout' to
+      determine how the view should behave when the component is resized.
+
+    */
+
+    /*
+
+      TO DO:
+
+      Put here the code to calculate new position and size of enclosed views. The
+      current (new) size of the component itself is passed in the parameter aSize.
+      For example:
+
+        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
+
+    */
+  }
+
+  $rect <10,350,210,390>
+  inherited method UpdateViewState()
+  {
+    // Always invoke the inherited method.
+    super( aState );
+
+    /*
+
+      HINT 1:
+
+      This method is invoked automatically when the state set of the component has
+      been changed. The new state set can be found in the parameter aState.
+      Following are the important states:
+
+        Enabled   --> The component can react to user inputs.
+
+        Selected  --> The component is selected in context of its owner.
+
+        Focused   --> The component is selected in context of its owner and 
+                      the owner can react to keyboard events. In this manner the
+                      component is also able to react to keyboard events.
+
+        Modal     --> The component is modal. All events are redirected to this
+                      component.
+
+      To determine whether a state is currently active or not you have to test
+      the aState parameter. For example to test the 'Selected' state:
+
+        if ( aState.contains( Core::ViewState[ Selected ]))
+        {
+          ... yes, this component is currently selected.
+        }
+
+    */
+
+    /*
+
+      HINT 2:
+
+      Alternatively you can request this method invocation by executing explicitly
+      following code:
+
+
+        InvalidateViewState();
+
+    */
+      
+    /*
+
+      TO DO 1:
+
+      Put here the code to ensure that the visual aspect of the component does
+      reflect its current state. For example, depending on its 'Enabled' state
+      a component may appear with full colors or pale if it is disabled:
+
+        if ( aState.contains( Core::ViewState[ Enabled ]))
+        {
+          SomeBackgroundView.Opacity = 255;
+          SomeTextView.Color         = #000000FF;
+        }
+        else
+        {
+          SomeBackgroundView.Opacity = 128;
+          SomeTextView.Color         = #00000080;
+        }
+
+
+      TO DO 2:
+
+      You can evaluate here also the state of any other member in your component.
+      For example in a push-button component, the button should appear highlighted
+      as long as the user holds the finger within a touch area of the button:
+
+        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
+          HighlightedBackground.Visible = true;
+        else
+          HighlightedBackground.Visible = false;
+
+      The touch handler itself only requests the update method to be called. Use
+      for this purpose 'InvalidateViewState()' method.
+
+
+      TO DO 3:
+
+      You can calculate here also the position/size of views accordingly to the
+      state of any other member in your component. For example in a slider you
+      can calculate the position of the slider knob from some properties like
+      'SliderValue' and 'SliderRange':
+
+        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
+
+      Changing the 'SliderValue' or 'SliderRange' property should only request
+      the update method to be called. Use for this purpose 'InvalidateViewState()'
+      method.
+
+    */
+  }
+
+  // To do:
+  // 
+  // - Adjust the visible size of your component (the thick blue border).
+  // 
+  // - The simplest way to compose the appearance of the component is to use the \
+  // 'Views' and 'Widget Sets' from the Gallery.
+  // 
+  // - To react to touch or keyboard events use the templates from the Gallery folder \
+  // 'Event Handlers'.
+  // 
+  // - To perform transitions (animations) use the templates from the Gallery folder \
+  // 'Effects'.
+  // 
+  // - To implement the interface of the component use the 'Property' template from \
+  // the Gallery folder 'Chora'.
+  // 
+  // - To store values use the 'Variable' and 'Array' templates available in the \
+  // Gallery folder 'Chora'.
+  // 
+  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
+  // in the Gallery folder 'Chora'.
+  // 
+  // - In the method 'UpdateViewState()' you can put code to update the state of \
+  // views enclosed in your component.
+  // 
+  // - In the method 'UpdateLayout()' you can put code to perform sophisticated layout \
+  // calculation for enclosed views.
+  note legend Note1
+  {
+    attr Bounds = <270,330,1050,650>;
+  }
+
+  $rect <284,164,484,204>
+  slot Slot
+  {
+    //Text.Bounds = <0,10,240,52>;
+    //Rectangle.Bounds = <0,10,240,52>;
+
+    // Bounds = <0,0,240,52>
+
+    if ( IsDialog(false))
+      Owner.DismissDialog( this, null, null, null, null, null, false );
+  }
+
+  $rect <265,15,465,55>
+  slot changeTouchHandlerEvent
+  {
+    sender; /* the method is called from the sender object */
+  }
+
+  $rect <270,100,470,140>
+  $output true
+  object Core::Timer Timer
+  {
+    preset OnTrigger = Slot;
+    preset Period = 0;
+    preset Begin = 500;
+  }
+
+  $rect <20,20,160,60>
+  object Core::SimpleTouchHandler SimpleTouchHandler
+  {
+    preset Point4 = <0,0>;
+    preset Point3 = <240,0>;
+    preset Point2 = <240,320>;
+    preset Point1 = <0,320>;
+    preset OnPress = Slot;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Rectangle Rectangle
+  {
+    preset Bounds = <0,0,240,320>;
+    preset Color = Game::White;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Creator
+  {
+    preset Bounds = <0,177,240,207>;
+    preset String = "by Serena";
+    preset Font = Resources::FontSmall;
+    preset Color = Game::Mint;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text Title
+  {
+    preset Bounds = <0,0,240,320>;
+    preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+    preset String = "Tic Tac Toe";
+    preset Font = Resources::FontLarge;
+    preset Color = Game::Mint;
+  }
+}
