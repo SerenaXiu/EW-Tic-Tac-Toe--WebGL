@@ -4,13 +4,18 @@ $rect <20,220,220,260>
 $output false
 class GameField : Core::Group
 {
-  $rect <260,350,440,390>
+  $rect <260,350,439,390>
   inherited method Init()
   {
     // TO DO: Write your code here ... 
     vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+
+
+    linkToFieldIcon = ^vField_00.CurrentIcon; 
+    vField_00.linkToCounter = ^Counter;
+
 
   }
 
@@ -322,7 +327,6 @@ class GameField : Core::Group
     if (pCurrentPlayer == Player1){
       pCurrentPlayer = Player2;
 
-
       }
     else {
       pCurrentPlayer = Player1;}
@@ -393,9 +397,9 @@ class GameField : Core::Group
     //fieldContentArray[0,0].FieldContent = CurrentPlayer.PlayerIcon;
 
     changeCurrentPlayer(Player2);
-    vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
-    vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
 
   }
 
@@ -425,7 +429,8 @@ class GameField : Core::Group
     // 
     // Now you can handle the alternation of the property.
     vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.PlayerName ;
-
+    linkToFieldIcon^ = pCurrentPlayer.PlayerIcon;
+    notifyobservers pCurrentPlayer;
   }
 
   $rect <270,220,470,260>
@@ -502,6 +507,41 @@ class GameField : Core::Group
 
     changeCurrentPlayer(Player1);
 
+  }
+
+  $rect <710,130,910,170>
+  slot Slot
+  {
+    if (pCurrentPlayer == Player1){
+      pCurrentPlayer = Player2;
+
+      }
+    else {
+      pCurrentPlayer = Player1;}
+  }
+
+  $rect <279,410,479,450>
+  property ^string linkToFieldIcon = ^Player1.PlayerIcon;
+
+  $rect <279,450,479,490>
+  onset linkToFieldIcon
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure linkToFieldIcon == value )
+      return;
+
+    // Remember the property's new value.
+    pure linkToFieldIcon = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <279,490,479,530>
+  onget linkToFieldIcon
+  {
+    return pure linkToFieldIcon;
   }
 }
 
@@ -969,9 +1009,8 @@ class FieldItem : Core::Group
 
     // it updates the vFieldContent to FieldContent
     vFieldContent.String = FieldContent;
-
     // disable touchhandler after assigning once.
-    SimpleTouchHandler.Enabled = false;
+    //SimpleTouchHandler.Enabled = false;
   }
 
   $rect <0,170,200,210>
@@ -997,21 +1036,24 @@ class FieldItem : Core::Group
 
     // disable touchhandler after 1 time
     //SimpleTouchHandler.Enabled = false;
-    FieldContent = CurrentPlayer.PlayerIcon;
+
+    // without^ FieldContent = CurrentPlayer.PlayerIcon;
+
+    //with^ 
+    FieldContent = CurrentIcon;
+
+    // Add to Counter
+    linkToCounter^ = (linkToCounter^) + 1;
 
     // down below works!
     //FieldContent = "B";
 
-  }
 
-  $rect <310,10,510,50>
-  slot ChangeFieldContent
-  {
-    sender; /* the method is called from the sender object */
+
   }
 
   $rect <100,-60,300,-20>
-  var Game::Players CurrentPlayer = Players.PlayerIcon;
+  var Game::Players CurrentPlayer = Players;
 
   $rect <-98,-59,102,-19>
   object Game::Players Players
@@ -1019,6 +1061,57 @@ class FieldItem : Core::Group
     preset PlayerName = "P2";
     preset PlayerIcon = "O";
   }
+
+  $rect <320,50,520,90>
+  property ^int32 linkToCounter = ^DefaultCounter;
+
+  $rect <320,90,520,130>
+  onset linkToCounter
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure linkToCounter == value )
+      return;
+
+    // Remember the property's new value.
+    pure linkToCounter = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <320,130,520,170>
+  onget linkToCounter
+  {
+    return pure linkToCounter;
+  }
+
+  $rect <213,181,413,221>
+  property string CurrentIcon = "A";
+
+  $rect <213,221,413,261>
+  onset CurrentIcon
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure CurrentIcon == value )
+      return;
+
+    // Remember the property's new value.
+    pure CurrentIcon = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <213,261,413,301>
+  onget CurrentIcon
+  {
+    return pure CurrentIcon;
+  }
+
+  $rect <-142,34,58,74>
+  property int32 DefaultCounter = 0;
 }
 
 $rect <490,489,690,529>
