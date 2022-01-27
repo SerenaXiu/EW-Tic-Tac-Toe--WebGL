@@ -12,20 +12,36 @@ class GameField : Core::Group
     //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     //vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
-    pPlayer1 = new Game::Players;
+    pDefaultPlayer = new Game::Players;
     pPlayer2 = new Game::Players;
 
-    pPlayer1.Icon = "X";
-    pPlayer1.Name = "P1";
+    pDefaultPlayer.Icon = "X";
+    pDefaultPlayer.Name = "P1";
 
 
 
     pure pPlayer2.Icon = "0";
-    vCurrentPlayerTitle.String = pure pPlayer2.Icon;
+    //vCurrentPlayerTitle.String = "Hi";
 
-    linkToFieldIcon = ^vField_00.CurrentIcon; 
     vField_00.linkToCounter = ^Counter;
+    vField_01.linkToCounter = ^Counter;
+    vField_02.linkToCounter = ^Counter;
+    vField_10.linkToCounter = ^Counter;
+    vField_11.linkToCounter = ^Counter;
+    vField_12.linkToCounter = ^Counter;
+    vField_20.linkToCounter = ^Counter;
+    vField_21.linkToCounter = ^Counter;
+    vField_22.linkToCounter = ^Counter;
 
+    vField_00.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_01.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_02.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_10.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_11.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_12.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_20.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_21.linkToCurrentPlayer = ^pCurrentPlayer;
+    vField_22.linkToCurrentPlayer = ^pCurrentPlayer;
 
   }
 
@@ -334,26 +350,21 @@ class GameField : Core::Group
   $rect <500,130,700,170>
   method void changeCurrentPlayer( arg Game::Players paramCurrentPlayer )
   {
-    if (pCurrentPlayer == Player1){
+    if ( Counter%2 == 1) {
+      pCurrentPlayer = Player1;
+      pNextPlayer = Player2;  }
+    else{
       pCurrentPlayer = Player2;
+      pNextPlayer = Player1;}
 
-      }
-    else {
-      pCurrentPlayer = Player1;}
-
-    //vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.PlayerName ;
-
-
-
-    //Game::GameField.FieldContent = CurrentPlayer.PlayerIcon;
   }
 
   $rect <20,20,160,60>
   object Views::Text vCurrentPlayerTitle
   {
-    preset Bounds = <0,51,240,81>;
+    preset Bounds = <0,51,119,81>;
     preset String = "Current Player: P1";
-    preset Font = Resources::FontSmall;
+    preset Font = Resources::DefaultFont;
   }
 
   $rect <270,50,470,90>
@@ -391,6 +402,7 @@ class GameField : Core::Group
     // 
     // Now you can handle the alternation of the property.
     vCounter.String = Counter;
+    changeCurrentPlayer(Player1);
   }
 
   $rect <497,257,697,297>
@@ -402,11 +414,11 @@ class GameField : Core::Group
   $rect <500,410,700,450>
   slot TestMethod2
   {
-    //CounterUpper();
+    CounterUpper();
 
     //fieldContentArray[0,0].FieldContent = CurrentPlayer.PlayerIcon;
 
-    changeCurrentPlayer(Player2);
+    changeCurrentPlayer(Player1);
     //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     vField_01.CurrentPlayer.Icon = pCurrentPlayer.Icon;
     //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
@@ -416,7 +428,7 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::PushButton TestButton
   {
-    preset Bounds = <165,1,240,51>;
+    preset Bounds = <165,3,240,53>;
     preset OnPress = TestMethod2;
     preset Label = "Test2";
     preset Appearance = WidgetSet::PushButton_Medium;
@@ -438,9 +450,9 @@ class GameField : Core::Group
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
-    vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.Name ;
-    linkToFieldIcon^ = pCurrentPlayer.Icon;
-    notifyobservers pCurrentPlayer;
+    vNextPlayerTitle.String = "Current Player: " + pNextPlayer.Name ;
+
+
   }
 
   $rect <270,220,470,260>
@@ -490,13 +502,13 @@ class GameField : Core::Group
   $rect <510,50,710,90>
   method void CounterUpper()
   {
-    //Counter += 1;
+    Counter += 1;
   }
 
   $rect <520,-10,720,30>
   slot smCounterUpper
   {
-    Counter += 1;
+    //Counter += 1;
   }
 
   $rect <20,20,160,60>
@@ -514,7 +526,7 @@ class GameField : Core::Group
     //CounterUpper();
 
     //fieldContentArray[0,0].FieldContent = CurrentPlayer.PlayerIcon;
-
+    CounterUpper();
     changeCurrentPlayer(Player1);
 
   }
@@ -530,61 +542,93 @@ class GameField : Core::Group
       pCurrentPlayer = Player1;}
   }
 
-  $rect <279,410,479,450>
-  property ^string linkToFieldIcon = ^Player1.Icon;
-
-  $rect <279,450,479,490>
-  onset linkToFieldIcon
-  {
-    // The value doesn't change - nothing to do.
-    if ( pure linkToFieldIcon == value )
-      return;
-
-    // Remember the property's new value.
-    pure linkToFieldIcon = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-  }
-
-  $rect <279,490,479,530>
-  onget linkToFieldIcon
-  {
-    return pure linkToFieldIcon;
-  }
-
   $rect <710,240,910,280>
-  property Game::Players pPlayer1;
+  property Game::Players pDefaultPlayer = Player1;
 
-  $rect <710,280,910,320>
-  onset pPlayer1
+  $rect <710,279,910,319>
+  onget pDefaultPlayer
   {
-    // The value doesn't change - nothing to do.
-    if ( pure pPlayer1 == value )
-      return;
-
-    // Remember the property's new value.
-    pure pPlayer1 = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-  }
-
-  $rect <710,320,910,360>
-  onget pPlayer1
-  {
-    return pure pPlayer1;
+    return pure pDefaultPlayer;
   }
 
   $rect <710,370,910,410>
   property Game::Players pPlayer2;
 
-  $rect <710,450,910,490>
+  $rect <710,410,910,450>
   onget pPlayer2
   {
     return pure pPlayer2;
+  }
+
+  $rect <260,-50,460,-10>
+  object Game::Players DefaultPlayer
+  {
+    preset Name = "P1";
+    preset Icon = "X";
+  }
+
+  $rect <740,-10,940,30>
+  property int32 Property;
+
+  $rect <740,30,940,70>
+  onset Property
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Property == value )
+      return;
+
+    // Remember the property's new value.
+    pure Property = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <740,70,940,110>
+  onget Property
+  {
+    return pure Property;
+  }
+
+  $rect <260,410,460,450>
+  property Game::Players pNextPlayer = Player2;
+
+  $rect <260,450,460,490>
+  onset pNextPlayer
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure pNextPlayer == value )
+      return;
+
+    // Remember the property's new value.
+    pure pNextPlayer = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <260,490,460,530>
+  onget pNextPlayer
+  {
+    return pure pNextPlayer;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text vCurrentPlayerTitle1
+  {
+    preset Bounds = <-1,20,239,50>;
+    preset String = "Hi";
+    preset Font = Resources::FontSmall;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text vCurrentPlayerTitle2
+  {
+    preset Bounds = <119,53,240,83>;
+    preset String = "Next Player: P2";
+    preset Font = Resources::DefaultFont;
   }
 }
 
@@ -1083,10 +1127,14 @@ class FieldItem : Core::Group
     // without^ FieldContent = CurrentPlayer.PlayerIcon;
 
     //with^ 
-    FieldContent = CurrentIcon;
+    //FieldContent = CurrentPlayer.Icon;
 
     // Add to Counter
     linkToCounter^ = (linkToCounter^) + 1;
+
+    //
+    CurrentPlayer = linkToCurrentPlayer^;
+    FieldContent = CurrentPlayer.Icon;
 
     // down below works!
     //FieldContent = "B";
@@ -1096,13 +1144,13 @@ class FieldItem : Core::Group
   }
 
   $rect <100,-60,300,-20>
-  var Game::Players CurrentPlayer = Players;
+  var Game::Players CurrentPlayer = DefaultPlayer;
 
   $rect <-98,-59,102,-19>
-  object Game::Players Players
+  object Game::Players DefaultPlayer
   {
-    preset Name = "P2";
-    preset Icon = "O";
+    preset Name = "PD";
+    preset Icon = "D";
   }
 
   $rect <320,50,520,90>
@@ -1129,32 +1177,32 @@ class FieldItem : Core::Group
     return pure linkToCounter;
   }
 
-  $rect <213,181,413,221>
-  property string CurrentIcon = "A";
+  $rect <-142,34,58,74>
+  property int32 DefaultCounter = 0;
 
-  $rect <213,221,413,261>
-  onset CurrentIcon
+  $rect <260,220,460,260>
+  property ^Game::Players linkToCurrentPlayer;
+
+  $rect <260,260,460,300>
+  onset linkToCurrentPlayer
   {
     // The value doesn't change - nothing to do.
-    if ( pure CurrentIcon == value )
+    if ( pure linkToCurrentPlayer == value )
       return;
 
     // Remember the property's new value.
-    pure CurrentIcon = value;
+    pure linkToCurrentPlayer = value;
 
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
   }
 
-  $rect <213,261,413,301>
-  onget CurrentIcon
+  $rect <260,300,460,340>
+  onget linkToCurrentPlayer
   {
-    return pure CurrentIcon;
+    return pure linkToCurrentPlayer;
   }
-
-  $rect <-142,34,58,74>
-  property int32 DefaultCounter = 0;
 }
 
 $rect <490,489,690,529>
