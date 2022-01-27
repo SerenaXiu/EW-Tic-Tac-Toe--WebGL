@@ -12,7 +12,16 @@ class GameField : Core::Group
     //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     //vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    pPlayer1 = new Game::Players;
+    pPlayer2 = new Game::Players;
 
+    pPlayer1.Icon = "X";
+    pPlayer1.Name = "P1";
+
+
+
+    pure pPlayer2.Icon = "0";
+    vCurrentPlayerTitle.String = pure pPlayer2.Icon;
 
     linkToFieldIcon = ^vField_00.CurrentIcon; 
     vField_00.linkToCounter = ^Counter;
@@ -353,8 +362,8 @@ class GameField : Core::Group
   $rect <270,90,470,130>
   object Game::Players Player2
   {
-    preset PlayerName = "P2";
-    preset PlayerIcon = "O";
+    preset Name = "P2";
+    preset Icon = "O";
   }
 
   $rect <20,20,160,60>
@@ -399,7 +408,7 @@ class GameField : Core::Group
 
     changeCurrentPlayer(Player2);
     //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
-    vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
+    vField_01.CurrentPlayer.Icon = pCurrentPlayer.Icon;
     //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
 
   }
@@ -429,8 +438,8 @@ class GameField : Core::Group
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
-    vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.PlayerName ;
-    linkToFieldIcon^ = pCurrentPlayer.PlayerIcon;
+    vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.Name ;
+    linkToFieldIcon^ = pCurrentPlayer.Icon;
     notifyobservers pCurrentPlayer;
   }
 
@@ -522,7 +531,7 @@ class GameField : Core::Group
   }
 
   $rect <279,410,479,450>
-  property ^string linkToFieldIcon = ^Player1.PlayerIcon;
+  property ^string linkToFieldIcon = ^Player1.Icon;
 
   $rect <279,450,479,490>
   onset linkToFieldIcon
@@ -543,6 +552,24 @@ class GameField : Core::Group
   onget linkToFieldIcon
   {
     return pure linkToFieldIcon;
+  }
+
+  $rect <710,240,910,280>
+  property Game::Players pPlayer1;
+
+  $rect <710,279,910,319>
+  onget pPlayer1
+  {
+    return pure pPlayer1;
+  }
+
+  $rect <710,370,910,410>
+  property Game::Players pPlayer2;
+
+  $rect <710,410,910,450>
+  onget pPlayer2
+  {
+    return pure pPlayer2;
   }
 }
 
@@ -1059,8 +1086,8 @@ class FieldItem : Core::Group
   $rect <-98,-59,102,-19>
   object Game::Players Players
   {
-    preset PlayerName = "P2";
-    preset PlayerIcon = "O";
+    preset Name = "P2";
+    preset Icon = "O";
   }
 
   $rect <320,50,520,90>
@@ -1253,17 +1280,17 @@ $output false
 class Players
 {
   $rect <40,40,240,80>
-  property string PlayerName = "P1";
+  property string Name = "P1";
 
   $rect <40,80,240,120>
-  onset PlayerName
+  onset Name
   {
     // The value doesn't change - nothing to do.
-    if ( pure PlayerName == value )
+    if ( pure Name == value )
       return;
 
     // Remember the property's new value.
-    pure PlayerName = value;
+    pure Name = value;
 
     // TO DO:
     // 
@@ -1271,23 +1298,23 @@ class Players
   }
 
   $rect <40,120,240,160>
-  onget PlayerName
+  onget Name
   {
-    return pure PlayerName;
+    return pure Name;
   }
 
   $rect <260,40,460,80>
-  property string PlayerIcon = "X";
+  property string Icon = "X";
 
   $rect <260,80,460,120>
-  onset PlayerIcon
+  onset Icon
   {
     // The value doesn't change - nothing to do.
-    if ( pure PlayerIcon == value )
+    if ( pure Icon == value )
       return;
 
     // Remember the property's new value.
-    pure PlayerIcon = value;
+    pure Icon = value;
 
     // TO DO:
     // 
@@ -1295,9 +1322,9 @@ class Players
   }
 
   $rect <260,120,460,160>
-  onget PlayerIcon
+  onget Icon
   {
-    return pure PlayerIcon;
+    return pure Icon;
   }
 }
 
