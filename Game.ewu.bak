@@ -23,15 +23,23 @@ class GameField : Core::Group
     pure pPlayer2.Icon = "0";
     //vCurrentPlayerTitle.String = "Hi";
 
-    vField_00.linkToCounter = ^Counter;
-    vField_01.linkToCounter = ^Counter;
-    vField_02.linkToCounter = ^Counter;
-    vField_10.linkToCounter = ^Counter;
-    vField_11.linkToCounter = ^Counter;
-    vField_12.linkToCounter = ^Counter;
-    vField_20.linkToCounter = ^Counter;
-    vField_21.linkToCounter = ^Counter;
-    vField_22.linkToCounter = ^Counter;
+    //vField_00.linkToCounter = ^Counter;
+    //vField_01.linkToCounter = ^Counter;
+    //vField_02.linkToCounter = ^Counter;
+    //vField_10.linkToCounter = ^Counter;
+    //vField_11.linkToCounter = ^Counter;
+    //vField_12.linkToCounter = ^Counter;
+    //vField_20.linkToCounter = ^Counter;
+    //vField_21.linkToCounter = ^Counter;
+    //vField_22.linkToCounter = ^Counter;
+
+    var int32 col = 0;
+    var int32 row = 0;
+
+    for ( row = 0; row < 3; row++ )
+      for ( col = 0; col < 3;  col++ )
+        fieldContentArray[ row, col ].linkToCounter = ^Counter;
+        //fieldContentArray[ row, col ].linkToCurrentPlayer = ^pCurrentPlayer;
 
     vField_00.linkToCurrentPlayer = ^pCurrentPlayer;
     vField_01.linkToCurrentPlayer = ^pCurrentPlayer;
@@ -43,6 +51,8 @@ class GameField : Core::Group
     vField_21.linkToCurrentPlayer = ^pCurrentPlayer;
     vField_22.linkToCurrentPlayer = ^pCurrentPlayer;
 
+    vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.Name ;
+    vNextPlayerTitle.String = "Next Player: " + pNextPlayer.Name ;
   }
 
   $rect <270,0,470,40>
@@ -333,22 +343,8 @@ class GameField : Core::Group
 
   }
 
-  $rect <500,300,700,340>
-  array Game::FieldItem fieldContentArray[ 3,3 ] =
-  (
-    Default[0, 0] = vField_00;
-    Default[0, 1] = vField_01;
-    Default[0, 2] = vField_02;
-    Default[1, 0] = vField_10;
-    Default[1, 1] = vField_11;
-    Default[1, 2] = vField_12;
-    Default[2, 0] = vField_20;
-    Default[2, 1] = vField_21;
-    Default[2, 2] = vField_22;
-  );
-
   $rect <500,130,700,170>
-  method void changeCurrentPlayer( arg Game::Players paramCurrentPlayer )
+  method void changeCurrentPlayer()
   {
     if ( Counter%2 == 1) {
       pCurrentPlayer = Player1;
@@ -363,7 +359,7 @@ class GameField : Core::Group
   object Views::Text vCurrentPlayerTitle
   {
     preset Bounds = <0,51,119,81>;
-    preset String = "Current Player: P1";
+    preset String = "Current Player: ";
     preset Font = Resources::DefaultFont;
   }
 
@@ -402,7 +398,7 @@ class GameField : Core::Group
     // 
     // Now you can handle the alternation of the property.
     vCounter.String = Counter;
-    changeCurrentPlayer(Player1);
+    changeCurrentPlayer();
   }
 
   $rect <497,257,697,297>
@@ -450,7 +446,7 @@ class GameField : Core::Group
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
-    vNextPlayerTitle.String = "Current Player: " + pNextPlayer.Name ;
+    vCurrentPlayerTitle.String = "Current Player: " + pVurrentPlayer.Name ;
 
 
   }
@@ -607,6 +603,7 @@ class GameField : Core::Group
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
+    vNextPlayerTitle.String = "Next Player: " + pNextPlayer.Name ;
   }
 
   $rect <260,490,460,530>
@@ -624,12 +621,26 @@ class GameField : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Views::Text vCurrentPlayerTitle2
+  object Views::Text vNextPlayerTitle
   {
     preset Bounds = <119,53,240,83>;
-    preset String = "Next Player: P2";
+    preset String = "Next Player: ";
     preset Font = Resources::DefaultFont;
   }
+
+  $rect <500,300,700,340>
+  array Game::FieldItem fieldContentArray[ 3,3 ] =
+  (
+    Default[0, 0] = vField_00;
+    Default[0, 1] = vField_01;
+    Default[0, 2] = vField_02;
+    Default[1, 0] = vField_10;
+    Default[1, 1] = vField_11;
+    Default[1, 2] = vField_12;
+    Default[2, 0] = vField_20;
+    Default[2, 1] = vField_21;
+    Default[2, 2] = vField_22;
+  );
 }
 
 // To do:
@@ -901,7 +912,9 @@ class FieldItem : Core::Group
   inherited method Init()
   {
     // TO DO: Write your code here ... 
-
+    pDefaultPlayer = new Game::Players;
+    pDefaultPlayer.Icon = "D";
+    pDefaultPlayer.Name = "PD";
   }
 
   $rect <0,230,200,270>
@@ -1120,10 +1133,6 @@ class FieldItem : Core::Group
     // this sloth method is triggered, when player touches the field
 
 
-
-    // disable touchhandler after 1 time
-    //SimpleTouchHandler.Enabled = false;
-
     // without^ FieldContent = CurrentPlayer.PlayerIcon;
 
     //with^ 
@@ -1133,8 +1142,11 @@ class FieldItem : Core::Group
     linkToCounter^ = (linkToCounter^) + 1;
 
     //
-    CurrentPlayer = linkToCurrentPlayer^;
-    FieldContent = CurrentPlayer.Icon;
+    pDefaultPlayer = linkToCurrentPlayer^;
+    FieldContent = pDefaultPlayer.Icon;
+
+    // disable touchhandler after 1 time
+    SimpleTouchHandler.Enabled = false;
 
     // down below works!
     //FieldContent = "B";
@@ -1152,6 +1164,9 @@ class FieldItem : Core::Group
     preset Name = "PD";
     preset Icon = "D";
   }
+
+  $rect <260,220,460,260>
+  property ^Game::Players linkToCurrentPlayer = ^pDefaultPlayer;
 
   $rect <320,50,520,90>
   property ^int32 linkToCounter = ^DefaultCounter;
@@ -1180,8 +1195,8 @@ class FieldItem : Core::Group
   $rect <-142,34,58,74>
   property int32 DefaultCounter = 0;
 
-  $rect <260,220,460,260>
-  property ^Game::Players linkToCurrentPlayer;
+  $rect <-140,70,60,110>
+  property Game::Players pDefaultPlayer = DefaultPlayer;
 
   $rect <260,260,460,300>
   onset linkToCurrentPlayer

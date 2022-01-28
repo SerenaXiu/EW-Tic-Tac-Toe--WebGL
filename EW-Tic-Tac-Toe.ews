@@ -4,9 +4,9 @@ attr active = Game::GameField;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Game::GameField.changeCurrentPlayer;
-attr codeSelEnd = <25,5>;
-attr codeSelStart = <25,5>;
+attr codeInspector = Game::GameField.OnSetpNextPlayer;
+attr codeSelEnd = <31,10>;
+attr codeSelStart = <31,10>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -69,23 +69,23 @@ view class Game::GameField
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = changeCurrentPlayer;
-  attr codeSelEnd = <25,5>;
-  attr codeSelStart = <25,5>;
+  attr codeInspector = OnSetpNextPlayer;
+  attr codeSelEnd = <31,10>;
+  attr codeSelStart = <31,10>;
   attr enableWireMode = false;
-  attr scrollTo = <-52,-55>;
+  attr scrollTo = <-4,-7>;
   attr zoom = 0.75;
 }
 
 view class Game::FieldItem
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,9>;
-  attr codeInspector = OnTouchFieldEvent;
-  attr codeSelEnd = <34,17>;
-  attr codeSelStart = <34,17>;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = Init;
+  attr codeSelEnd = <30,2>;
+  attr codeSelStart = <30,2>;
   attr enableWireMode = false;
-  attr scrollTo = <-205,-142>;
+  attr scrollTo = <-205,-110>;
   attr zoom = 0.75;
 }
 
@@ -99,10 +99,10 @@ view unit Application
 view class Application::Application
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,8>;
+  attr codeFirstPos = <0,0>;
   attr codeInspector = Init;
-  attr codeSelEnd = <19,14>;
-  attr codeSelStart = <19,14>;
+  attr codeSelEnd = <19,6>;
+  attr codeSelStart = <19,6>;
   attr enableWireMode = false;
   attr scrollTo = <-7,-7>;
   attr zoom = 1.0;
