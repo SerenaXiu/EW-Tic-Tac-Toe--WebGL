@@ -28,6 +28,9 @@ $rect <20,30,220,70>
 $output false
 class Application : Core::Root
 {
+  $rect <20,20,160,60>
+  object Game::GameTitle GameTitleFull;
+
   $rect <10,350,190,390>
   inherited method Init()
   {
@@ -42,9 +45,6 @@ class Application : Core::Root
 
   $rect <270,0,470,40>
   inherited property Bounds = <0,0,240,320>;
-
-  $rect <20,20,160,60>
-  object Game::GameTitle GameTitleFull;
 
   $rect <560,60,760,100>
   slot StartTimer
@@ -111,4 +111,6 @@ class Application : Core::Root
   {
     attr Bounds = <519,0,819,200>;
   }
+
+  $reorder GameTitleFull 178
 }

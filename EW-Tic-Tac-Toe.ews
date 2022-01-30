@@ -3,12 +3,12 @@ $version 1.0
 attr active = Game::GameField;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,0>;
-attr codeInspector = Game::GameField.OnSetpNextPlayer;
-attr codeSelEnd = <31,10>;
-attr codeSelStart = <31,10>;
+attr codeFirstPos = <0,23>;
+attr codeInspector = Game::GameField.Init;
+attr codeSelEnd = <48,26>;
+attr codeSelStart = <48,26>;
 attr connectInspectors = false;
-attr debug_TrackUpdates = false;
+attr debug_TrackUpdates = true;
 attr extractDoc_ClassOverview = true;
 attr extractDoc_DeleteOldFiles = false;
 attr extractDoc_Destination = ./HtmlDoc;
@@ -57,7 +57,7 @@ view class Game::GameTitle
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = Slot;
+  attr codeInspector = smDismiss;
   attr codeSelEnd = <21,5>;
   attr codeSelStart = <21,5>;
   attr enableWireMode = false;
@@ -68,42 +68,23 @@ view class Game::GameTitle
 view class Game::GameField
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = OnSetpNextPlayer;
-  attr codeSelEnd = <31,10>;
-  attr codeSelStart = <31,10>;
+  attr codeFirstPos = <0,23>;
+  attr codeInspector = Init;
+  attr codeSelEnd = <48,26>;
+  attr codeSelStart = <48,26>;
   attr enableWireMode = false;
-  attr scrollTo = <-4,-7>;
+  attr scrollTo = <-108,-3>;
   attr zoom = 0.75;
 }
 
 view class Game::FieldItem
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Init;
-  attr codeSelEnd = <30,2>;
-  attr codeSelStart = <30,2>;
+  attr codeFirstPos = <0,6>;
+  attr codeInspector = OnTouchFieldEvent;
+  attr codeSelEnd = <39,18>;
+  attr codeSelStart = <39,18>;
   attr enableWireMode = false;
-  attr scrollTo = <-205,-110>;
+  attr scrollTo = <-124,-17>;
   attr zoom = 0.75;
-}
-
-view unit Application
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class Application::Application
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Init;
-  attr codeSelEnd = <19,6>;
-  attr codeSelStart = <19,6>;
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
 }

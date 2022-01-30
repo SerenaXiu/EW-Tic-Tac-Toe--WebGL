@@ -4,7 +4,7 @@ $rect <20,220,220,260>
 $output false
 class GameField : Core::Group
 {
-  $rect <260,350,439,390>
+  $rect <20,439,199,479>
   inherited method Init()
   {
     // TO DO: Write your code here ... 
@@ -12,34 +12,26 @@ class GameField : Core::Group
     //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     //vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
     //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
-    pDefaultPlayer = new Game::Players;
-    pPlayer2 = new Game::Players;
 
-    pDefaultPlayer.Icon = "X";
-    pDefaultPlayer.Name = "P1";
-
-
-
-    pure pPlayer2.Icon = "0";
     //vCurrentPlayerTitle.String = "Hi";
 
-    //vField_00.linkToCounter = ^Counter;
-    //vField_01.linkToCounter = ^Counter;
-    //vField_02.linkToCounter = ^Counter;
-    //vField_10.linkToCounter = ^Counter;
-    //vField_11.linkToCounter = ^Counter;
-    //vField_12.linkToCounter = ^Counter;
-    //vField_20.linkToCounter = ^Counter;
-    //vField_21.linkToCounter = ^Counter;
-    //vField_22.linkToCounter = ^Counter;
+    vField_00.linkToCounter = ^pCounter;
+    vField_01.linkToCounter = ^pCounter;
+    vField_02.linkToCounter = ^pCounter;
+    vField_10.linkToCounter = ^pCounter;
+    vField_11.linkToCounter = ^pCounter;
+    vField_12.linkToCounter = ^pCounter;
+    vField_20.linkToCounter = ^pCounter;
+    vField_21.linkToCounter = ^pCounter;
+    vField_22.linkToCounter = ^pCounter;
 
-    var int32 col = 0;
-    var int32 row = 0;
+    //var int32 col = 0;
+    //var int32 row = 0;
 
-    for ( row = 0; row < 3; row++ )
+    /*for ( row = 0; row < 3; row++ )
       for ( col = 0; col < 3;  col++ )
-        fieldContentArray[ row, col ].linkToCounter = ^Counter;
-        //fieldContentArray[ row, col ].linkToCurrentPlayer = ^pCurrentPlayer;
+        aFieldItems[ row, col ].linkToCounter = ^pCounter;
+        //fieldContentArray[ row, col ].linkToCurrentPlayer = ^pCurrentPlayer;    */
 
     vField_00.linkToCurrentPlayer = ^pCurrentPlayer;
     vField_01.linkToCurrentPlayer = ^pCurrentPlayer;
@@ -50,9 +42,24 @@ class GameField : Core::Group
     vField_20.linkToCurrentPlayer = ^pCurrentPlayer;
     vField_21.linkToCurrentPlayer = ^pCurrentPlayer;
     vField_22.linkToCurrentPlayer = ^pCurrentPlayer;
-
+                                                           
     vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.Name ;
     vNextPlayerTitle.String = "Next Player: " + pNextPlayer.Name ;
+    /*
+    aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
+    aValueState[1] = aFieldItems[1,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[1,2].FieldValue;
+    aValueState[2] = aFieldItems[2,0].FieldValue + aFieldItems[2,1].FieldValue + aFieldItems[2,2].FieldValue;
+    // all columns
+    aValueState[3] = aFieldItems[0,0].FieldValue + aFieldItems[1,0].FieldValue + aFieldItems[2,0].FieldValue;
+    aValueState[4] = aFieldItems[0,1].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,1].FieldValue;
+    aValueState[5] = aFieldItems[0,2].FieldValue + aFieldItems[1,2].FieldValue + aFieldItems[2,2].FieldValue;
+    // all diagonals
+    aValueState[6] = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
+    aValueState[7] = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue; 
+    */
+
+
+
   }
 
   $rect <270,0,470,40>
@@ -92,6 +99,7 @@ class GameField : Core::Group
   {
     // Always invoke the inherited method.
     super( aState );
+
 
     /*
 
@@ -263,54 +271,75 @@ class GameField : Core::Group
   {
     preset Bounds = <44,85,94,135>;
     preset Enabled = true;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
+    preset FieldValue = 0;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_01
   {
     preset Bounds = <94,85,144,135>;
+    preset FieldContent;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
+    preset FieldValue = 0;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_02
   {
     preset Bounds = <144,85,194,135>;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_10
   {
     preset Bounds = <44,135,94,185>;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_11
   {
     preset Bounds = <94,135,144,185>;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_12
   {
     preset Bounds = <144,135,194,185>;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_20
   {
     preset Bounds = <44,185,94,235>;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_21
   {
     preset Bounds = <95,185,145,235>;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
   }
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_22
   {
     preset Bounds = <144,185,194,235>;
+    preset linkToCurrentPlayer = ^pCurrentPlayer;
+    preset linkToCounter = ^pCounter;
   }
 
   $rect <939,41,1139,81>
@@ -343,10 +372,10 @@ class GameField : Core::Group
 
   }
 
-  $rect <500,130,700,170>
-  method void changeCurrentPlayer()
+  $rect <490,310,690,350>
+  method void mChangeCurrentPlayer()
   {
-    if ( Counter%2 == 1) {
+    if ( pCounter%2 == 1) {
       pCurrentPlayer = Player1;
       pNextPlayer = Player2;  }
     else{
@@ -358,53 +387,62 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text vCurrentPlayerTitle
   {
-    preset Bounds = <0,51,119,81>;
+    preset Bounds = <0,26,119,56>;
     preset String = "Current Player: ";
     preset Font = Resources::DefaultFont;
   }
 
   $rect <270,50,470,90>
-  object Game::Players Player1;
+  object Game::Players Player1
+  {
+    preset Value = 1;
+  }
 
   $rect <270,90,470,130>
   object Game::Players Player2
   {
     preset Name = "P2";
     preset Icon = "O";
+    preset Value = 2;
   }
 
   $rect <20,20,160,60>
   object Views::Text vCounter
   {
-    preset Bounds = <0,51,50,81>;
+    preset Bounds = <202,290,239,320>;
     preset String = "0";
     preset Font = Resources::FontLarge;
   }
 
   $rect <497,177,697,217>
-  property int32 Counter;
+  property int32 pCounter;
 
   $rect <497,217,697,257>
-  onset Counter
+  onset pCounter
   {
     // The value doesn't change - nothing to do.
-    if ( pure Counter == value )
+    if ( pure pCounter == value )
       return;
 
     // Remember the property's new value.
-    pure Counter = value;
+    pure pCounter = value;
 
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
-    vCounter.String = Counter;
-    changeCurrentPlayer();
+
+
+    updateValueState();
+    mChangeCurrentPlayer();
+    vCounter.String = pCounter;
+    // 
+
   }
 
   $rect <497,257,697,297>
-  onget Counter
+  onget pCounter
   {
-    return pure Counter;
+    return pure pCounter;
   }
 
   $rect <500,410,700,450>
@@ -414,9 +452,9 @@ class GameField : Core::Group
 
     //fieldContentArray[0,0].FieldContent = CurrentPlayer.PlayerIcon;
 
-    changeCurrentPlayer(Player1);
+    mChangeCurrentPlayer();
     //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
-    vField_01.CurrentPlayer.Icon = pCurrentPlayer.Icon;
+    //vField_01.CurrentPlayer.Icon = pCurrentPlayer.Icon;
     //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
 
   }
@@ -446,7 +484,7 @@ class GameField : Core::Group
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
-    vCurrentPlayerTitle.String = "Current Player: " + pVurrentPlayer.Name ;
+    vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.Name ;
 
 
   }
@@ -495,65 +533,10 @@ class GameField : Core::Group
     attr Bounds = <930,1,1150,260>;
   }
 
-  $rect <510,50,710,90>
+  $rect <510,30,710,70>
   method void CounterUpper()
   {
-    Counter += 1;
-  }
-
-  $rect <520,-10,720,30>
-  slot smCounterUpper
-  {
-    //Counter += 1;
-  }
-
-  $rect <20,20,160,60>
-  object WidgetSet::PushButton TestButton1
-  {
-    preset Bounds = <0,0,75,50>;
-    preset OnPress = TestMethod1;
-    preset Label = "Test1";
-    preset Appearance = WidgetSet::PushButton_Medium;
-  }
-
-  $rect <500,370,700,410>
-  slot TestMethod1
-  {
-    //CounterUpper();
-
-    //fieldContentArray[0,0].FieldContent = CurrentPlayer.PlayerIcon;
-    CounterUpper();
-    changeCurrentPlayer(Player1);
-
-  }
-
-  $rect <710,130,910,170>
-  slot Slot
-  {
-    if (pCurrentPlayer == Player1){
-      pCurrentPlayer = Player2;
-
-      }
-    else {
-      pCurrentPlayer = Player1;}
-  }
-
-  $rect <710,240,910,280>
-  property Game::Players pDefaultPlayer = Player1;
-
-  $rect <710,279,910,319>
-  onget pDefaultPlayer
-  {
-    return pure pDefaultPlayer;
-  }
-
-  $rect <710,370,910,410>
-  property Game::Players pPlayer2;
-
-  $rect <710,410,910,450>
-  onget pPlayer2
-  {
-    return pure pPlayer2;
+    pCounter += 1;
   }
 
   $rect <260,-50,460,-10>
@@ -561,36 +544,13 @@ class GameField : Core::Group
   {
     preset Name = "P1";
     preset Icon = "X";
+    preset Value = 1;
   }
 
-  $rect <740,-10,940,30>
-  property int32 Property;
-
-  $rect <740,30,940,70>
-  onset Property
-  {
-    // The value doesn't change - nothing to do.
-    if ( pure Property == value )
-      return;
-
-    // Remember the property's new value.
-    pure Property = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-  }
-
-  $rect <740,70,940,110>
-  onget Property
-  {
-    return pure Property;
-  }
-
-  $rect <260,410,460,450>
+  $rect <270,270,470,310>
   property Game::Players pNextPlayer = Player2;
 
-  $rect <260,450,460,490>
+  $rect <270,310,470,350>
   onset pNextPlayer
   {
     // The value doesn't change - nothing to do.
@@ -606,16 +566,16 @@ class GameField : Core::Group
     vNextPlayerTitle.String = "Next Player: " + pNextPlayer.Name ;
   }
 
-  $rect <260,490,460,530>
+  $rect <270,350,470,390>
   onget pNextPlayer
   {
     return pure pNextPlayer;
   }
 
   $rect <20,20,160,60>
-  object Views::Text vCurrentPlayerTitle1
+  object Views::Text vMsgText
   {
-    preset Bounds = <-1,20,239,50>;
+    preset Bounds = <-1,-2,239,28>;
     preset String = "Hi";
     preset Font = Resources::FontSmall;
   }
@@ -623,13 +583,13 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text vNextPlayerTitle
   {
-    preset Bounds = <119,53,240,83>;
+    preset Bounds = <119,28,240,58>;
     preset String = "Next Player: ";
     preset Font = Resources::DefaultFont;
   }
 
-  $rect <500,300,700,340>
-  array Game::FieldItem fieldContentArray[ 3,3 ] =
+  $rect <730,370,930,410>
+  array Game::FieldItem aFieldItems[ 3,3 ] =
   (
     Default[0, 0] = vField_00;
     Default[0, 1] = vField_01;
@@ -641,6 +601,177 @@ class GameField : Core::Group
     Default[2, 1] = vField_21;
     Default[2, 2] = vField_22;
   );
+
+  $rect <730,410,930,450>
+  array int32 aValueState[ 8 ] =
+  (
+    Default[0] = 0;
+    Default[1] = 0;
+    Default[2] = 0;
+    Default[3] = 0;
+    Default[4] = 0;
+    Default[5] = 0;
+    Default[6] = 0;
+    Default[7] = 0;
+  );
+
+  $rect <720,199,920,239>
+  method void checkIfWon()
+  {
+
+    //vMsgText.String = "Someone won!";
+  }
+
+  $rect <720,250,920,290>
+  method int32 checkWhoWon( arg int32 aArg1 )
+  {
+    /* The template just returns the given argument... */
+    return aArg1;
+  }
+
+  $rect <733,135,933,175>
+  method void checkFields()
+  {
+    /*
+      check rows, columns and diagonals if its filled. if yes then call methods checkIfWon
+    */
+
+
+
+    if(   (vField_00.FieldContent == vField_01.FieldContent && vField_01.FieldContent == vField_02.FieldContent)
+       || (vField_10.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_12.FieldContent) 
+       || (vField_20.FieldContent == vField_21.FieldContent && vField_21.FieldContent == vField_22.FieldContent) 
+       || (vField_00.FieldContent == vField_10.FieldContent && vField_10.FieldContent == vField_20.FieldContent) 
+       || (vField_01.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_21.FieldContent) 
+       || (vField_02.FieldContent == vField_12.FieldContent && vField_12.FieldContent == vField_22.FieldContent) 
+       || (vField_00.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_22.FieldContent) 
+       || (vField_02.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_20.FieldContent) ){
+        
+        checkIfWon();
+       } 
+
+
+  }
+
+  $rect <730,300,930,340>
+  method void updateValueState()
+  {
+    /*
+     * updates the sum of each row, columns and diagonals, if value reached 3 or higher, check if  
+     */
+    // all rows
+    aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
+    aValueState[1] = aFieldItems[1,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[1,2].FieldValue;
+    aValueState[2] = aFieldItems[2,0].FieldValue + aFieldItems[2,1].FieldValue + aFieldItems[2,2].FieldValue;
+    // all columns
+    aValueState[3] = aFieldItems[0,0].FieldValue + aFieldItems[1,0].FieldValue + aFieldItems[2,0].FieldValue;
+    aValueState[4] = aFieldItems[0,1].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,1].FieldValue;
+    aValueState[5] = aFieldItems[0,2].FieldValue + aFieldItems[1,2].FieldValue + aFieldItems[2,2].FieldValue;
+    // all diagonals
+    aValueState[6] = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
+    aValueState[7] = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue;
+
+    rr0.String = aValueState[0];
+    rr1.String = aValueState[1];
+    rr2.String = aValueState[2];
+    rc0.String = aValueState[3];
+    rc1.String = aValueState[4];
+    rc2.String = aValueState[5];
+    rd0.String = aValueState[6];
+    rd1.String = aValueState[7];
+
+
+
+
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rc0
+  {
+    preset Bounds = <44,53,94,83>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rr0
+  {
+    preset Bounds = <194,85,220,133>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rr1
+  {
+    preset Bounds = <194,135,220,183>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rr2
+  {
+    preset Bounds = <194,187,220,235>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rc1
+  {
+    preset Bounds = <95,53,145,83>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rc2
+  {
+    preset Bounds = <144,58,194,88>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rd1
+  {
+    preset Bounds = <19,235,44,265>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text rd0
+  {
+    preset Bounds = <195,235,220,265>;
+    preset String = "Text";
+    preset Font = Resources::DefaultFont;
+  }
+
+  $rect <260,420,460,460>
+  slot Slot
+  {
+    aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
+    aValueState[1] = aFieldItems[1,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[1,2].FieldValue;
+    aValueState[2] = aFieldItems[2,0].FieldValue + aFieldItems[2,1].FieldValue + aFieldItems[2,2].FieldValue;
+    // all columns
+    aValueState[3] = aFieldItems[0,0].FieldValue + aFieldItems[1,0].FieldValue + aFieldItems[2,0].FieldValue;
+    aValueState[4] = aFieldItems[0,1].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,1].FieldValue;
+    aValueState[5] = aFieldItems[0,2].FieldValue + aFieldItems[1,2].FieldValue + aFieldItems[2,2].FieldValue;
+    // all diagonals
+    aValueState[6] = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
+    aValueState[7] = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue;
+
+    rr0.String = aValueState[0];
+    rr1.String = aValueState[1];
+    rr2.String = aValueState[2];
+    rc0.String = aValueState[3];
+    rc1.String = aValueState[4];
+    rc2.String = aValueState[5];
+    rd0.String = aValueState[6];
+    rd1.String = aValueState[7];
+  }
 }
 
 // To do:
@@ -908,19 +1039,20 @@ $rect <251,180,451,220>
 $output false
 class FieldItem : Core::Group
 {
-  $rect <310,-60,490,-20>
+  $rect <-60,109,140,149>
   inherited method Init()
   {
     // TO DO: Write your code here ... 
-    pDefaultPlayer = new Game::Players;
-    pDefaultPlayer.Icon = "D";
-    pDefaultPlayer.Name = "PD";
+    pCurrentPlayer = new Game::Players;
+    pCurrentPlayer.Icon = "D";
+    pCurrentPlayer.Name = "PD";
+    pCurrentPlayer.Value = 6;
   }
 
-  $rect <0,230,200,270>
+  $rect <-60,70,140,110>
   inherited property Bounds = <0,0,50,50>;
 
-  $rect <10,340,210,380>
+  $rect <-60,190,140,230>
   inherited method UpdateLayout()
   {
     // Always invoke the inherited method.
@@ -949,7 +1081,7 @@ class FieldItem : Core::Group
     */
   }
 
-  $rect <10,300,210,340>
+  $rect <-60,150,140,190>
   inherited method UpdateViewState()
   {
     // Always invoke the inherited method.
@@ -1048,38 +1180,6 @@ class FieldItem : Core::Group
     */
   }
 
-  // To do:
-  // 
-  // - Adjust the visible size of your component (the thick blue border).
-  // 
-  // - The simplest way to compose the appearance of the component is to use the \
-  // 'Views' and 'Widget Sets' from the Gallery.
-  // 
-  // - To react to touch or keyboard events use the templates from the Gallery folder \
-  // 'Event Handlers'.
-  // 
-  // - To perform transitions (animations) use the templates from the Gallery folder \
-  // 'Effects'.
-  // 
-  // - To implement the interface of the component use the 'Property' template from \
-  // the Gallery folder 'Chora'.
-  // 
-  // - To store values use the 'Variable' and 'Array' templates available in the \
-  // Gallery folder 'Chora'.
-  // 
-  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
-  // in the Gallery folder 'Chora'.
-  // 
-  // - In the method 'UpdateViewState()' you can put code to update the state of \
-  // views enclosed in your component.
-  // 
-  // - In the method 'UpdateLayout()' you can put code to perform sophisticated layout \
-  // calculation for enclosed views.
-  note legend Note1
-  {
-    attr Bounds = <220,100,1000,420>;
-  }
-
   $rect <20,20,160,60>
   object Core::SimpleTouchHandler SimpleTouchHandler
   {
@@ -1090,10 +1190,10 @@ class FieldItem : Core::Group
     preset OnPress = OnTouchFieldEvent;
   }
 
-  $rect <0,90,200,130>
-  property string FieldContent = "N";
+  $rect <190,80,390,120>
+  property string FieldContent;
 
-  $rect <0,130,200,170>
+  $rect <190,120,390,160>
   onset FieldContent
   {
     // The value doesn't change - nothing to do.
@@ -1113,7 +1213,7 @@ class FieldItem : Core::Group
     //SimpleTouchHandler.Enabled = false;
   }
 
-  $rect <0,170,200,210>
+  $rect <190,160,390,200>
   onget FieldContent
   {
     return pure FieldContent;
@@ -1127,7 +1227,25 @@ class FieldItem : Core::Group
     preset Font = Resources::FontExtraLarge;
   }
 
-  $rect <100,10,300,50>
+  $rect <180,210,380,250>
+  property int32 FieldValue;
+
+  $rect <180,250,380,290>
+  onset FieldValue
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure FieldValue == value )
+      return;
+
+    // Remember the property's new value.
+    pure FieldValue = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <90,0,290,40>
   slot OnTouchFieldEvent
   {
     // this sloth method is triggered, when player touches the field
@@ -1142,8 +1260,9 @@ class FieldItem : Core::Group
     linkToCounter^ = (linkToCounter^) + 1;
 
     //
-    pDefaultPlayer = linkToCurrentPlayer^;
-    FieldContent = pDefaultPlayer.Icon;
+    pCurrentPlayer = linkToCurrentPlayer^;
+    FieldContent = pCurrentPlayer.Icon;
+    FieldValue = pCurrentPlayer.Value;
 
     // disable touchhandler after 1 time
     SimpleTouchHandler.Enabled = false;
@@ -1155,23 +1274,21 @@ class FieldItem : Core::Group
 
   }
 
-  $rect <100,-60,300,-20>
-  var Game::Players CurrentPlayer = DefaultPlayer;
-
-  $rect <-98,-59,102,-19>
+  $rect <-58,240,142,280>
   object Game::Players DefaultPlayer
   {
     preset Name = "PD";
     preset Icon = "D";
+    preset Value = 6;
   }
 
-  $rect <260,220,460,260>
-  property ^Game::Players linkToCurrentPlayer = ^pDefaultPlayer;
+  $rect <420,200,620,240>
+  property ^Game::Players linkToCurrentPlayer = ^pCurrentPlayer;
 
-  $rect <320,50,520,90>
+  $rect <420,70,620,110>
   property ^int32 linkToCounter = ^DefaultCounter;
 
-  $rect <320,90,520,130>
+  $rect <420,110,620,150>
   onset linkToCounter
   {
     // The value doesn't change - nothing to do.
@@ -1186,19 +1303,19 @@ class FieldItem : Core::Group
     // Now you can handle the alternation of the property.
   }
 
-  $rect <320,130,520,170>
+  $rect <420,150,620,190>
   onget linkToCounter
   {
     return pure linkToCounter;
   }
 
-  $rect <-142,34,58,74>
+  $rect <-60,290,140,330>
   property int32 DefaultCounter = 0;
 
-  $rect <-140,70,60,110>
-  property Game::Players pDefaultPlayer = DefaultPlayer;
+  $rect <-58,326,142,366>
+  property Game::Players pCurrentPlayer = DefaultPlayer;
 
-  $rect <260,260,460,300>
+  $rect <420,240,620,280>
   onset linkToCurrentPlayer
   {
     // The value doesn't change - nothing to do.
@@ -1213,10 +1330,40 @@ class FieldItem : Core::Group
     // Now you can handle the alternation of the property.
   }
 
-  $rect <260,300,460,340>
+  $rect <420,280,620,320>
   onget linkToCurrentPlayer
   {
     return pure linkToCurrentPlayer;
+  }
+
+  $rect <180,290,380,330>
+  onget FieldValue
+  {
+    return pure FieldValue;
+  }
+
+  $rect <420,340,620,380>
+  property ^slot Property = ^SimpleTouchHandler.OnEnter;
+
+  $rect <420,380,620,420>
+  onset Property
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Property == value )
+      return;
+
+    // Remember the property's new value.
+    pure Property = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <420,420,620,460>
+  onget Property
+  {
+    return pure Property;
   }
 }
 
@@ -1404,6 +1551,30 @@ class Players
   {
     return pure Icon;
   }
+
+  $rect <150,180,350,220>
+  property int32 Value;
+
+  $rect <150,220,350,260>
+  onset Value
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Value == value )
+      return;
+
+    // Remember the property's new value.
+    pure Value = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <150,260,350,300>
+  onget Value
+  {
+    return pure Value;
+  }
 }
 
 $rect <20,180,220,220>
@@ -1572,8 +1743,8 @@ class GameTitle : Core::Group
     attr Bounds = <270,330,1050,650>;
   }
 
-  $rect <284,164,484,204>
-  slot Slot
+  $rect <270,100,470,140>
+  slot smDismiss
   {
     //Text.Bounds = <0,10,240,52>;
     //Rectangle.Bounds = <0,10,240,52>;
@@ -1584,17 +1755,11 @@ class GameTitle : Core::Group
       Owner.DismissDialog( this, null, null, null, null, null, false );
   }
 
-  $rect <265,15,465,55>
-  slot changeTouchHandlerEvent
-  {
-    sender; /* the method is called from the sender object */
-  }
-
-  $rect <270,100,470,140>
+  $rect <270,60,470,100>
   $output true
   object Core::Timer Timer
   {
-    preset OnTrigger = Slot;
+    preset OnTrigger = smDismiss;
     preset Period = 0;
     preset Begin = 500;
   }
@@ -1606,7 +1771,7 @@ class GameTitle : Core::Group
     preset Point3 = <240,0>;
     preset Point2 = <240,320>;
     preset Point1 = <0,320>;
-    preset OnPress = Slot;
+    preset OnPress = smDismiss;
   }
 
   $rect <20,20,160,60>
@@ -1634,4 +1799,53 @@ class GameTitle : Core::Group
     preset Font = Resources::FontLarge;
     preset Color = Game::Mint;
   }
+
+  $reorder PresentDialog 1
+  $reorder ObtainFocus 1
+  $reorder HasViewState 1
+  $reorder LocalPosition 1
+  $reorder GlobalPosition 1
+  $reorder DispatchEvent 1
+  $reorder BroadcastEventAtPosition 1
+  $reorder BroadcastEvent 1
+  $reorder UpdateLayout 1
+  $reorder UpdateViewState 1
+  $reorder InvalidateLayout 1
+  $reorder InvalidateViewState 1
+  $reorder InvalidateArea 1
+  $reorder GetIndexOfView 1
+  $reorder GetViewAtIndex 1
+  $reorder CountViews 1
+  $reorder FindViewInDirection 1
+  $reorder FindViewWithinArea 1
+  $reorder FindViewAtPosition 1
+  $reorder FindPrevView 1
+  $reorder FindNextView 1
+  $reorder FindSiblingView 1
+  $reorder GetContentArea 1
+  $reorder FadeGroup 1
+  $reorder RestackBehind 1
+  $reorder RestackBack 1
+  $reorder RestackTop 1
+  $reorder Restack 1
+  $reorder RemoveAll 1
+  $reorder Remove 1
+  $reorder AddBehind 1
+  $reorder Add 1
+  $reorder Focus 1
+  $reorder Buffered 1
+  $reorder Enabled 1
+  $reorder Opacity 1
+  $reorder Embedded 1
+  $reorder AlphaBlended 1
+  $reorder Visible 1
+  $reorder Note1 1
+}
+
+$rect <250,270,450,310>
+$output false
+class ValueArray
+{
+  $rect <70,50,270,90>
+  array Game::FieldItem Array[ 8 ];
 }

@@ -75,7 +75,7 @@ class Application : Core::Root
     //TRYING
     Remove( vGameField);
     vGameField = new Game::GameField;
-    Add( vGameField, 180 );
+    Add( vGameField, 185 );
 
   }
 
