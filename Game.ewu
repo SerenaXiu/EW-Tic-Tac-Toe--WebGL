@@ -660,7 +660,8 @@ class GameField : Core::Group
      * updates the sum of each row, columns and diagonals, if value reached 3 or higher, check if  
      */
     // all rows
-    aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
+    aValueState[0] = vField_00.FieldValue + vField_01.FieldValue + vField_02.FieldValue;
+    //aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
     aValueState[1] = aFieldItems[1,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[1,2].FieldValue;
     aValueState[2] = aFieldItems[2,0].FieldValue + aFieldItems[2,1].FieldValue + aFieldItems[2,2].FieldValue;
     // all columns
@@ -1243,6 +1244,7 @@ class FieldItem : Core::Group
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
+    //linkToCounter^ = (linkToCounter^) + 1;
   }
 
   $rect <90,0,290,40>
@@ -1256,8 +1258,6 @@ class FieldItem : Core::Group
     //with^ 
     //FieldContent = CurrentPlayer.Icon;
 
-    // Add to Counter
-    linkToCounter^ = (linkToCounter^) + 1;
 
     //
     /*
@@ -1270,6 +1270,10 @@ class FieldItem : Core::Group
 
     // disable touchhandler after 1 time
     SimpleTouchHandler.Enabled = false;
+
+
+    // Add to Counter
+    linkToCounter^ = (linkToCounter^) + 1;
 
     // down below works!
     //FieldContent = "B";
@@ -1344,30 +1348,6 @@ class FieldItem : Core::Group
   onget FieldValue
   {
     return pure FieldValue;
-  }
-
-  $rect <420,340,620,380>
-  property ^slot Property = ^SimpleTouchHandler.OnEnter;
-
-  $rect <420,380,620,420>
-  onset Property
-  {
-    // The value doesn't change - nothing to do.
-    if ( pure Property == value )
-      return;
-
-    // Remember the property's new value.
-    pure Property = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-  }
-
-  $rect <420,420,620,460>
-  onget Property
-  {
-    return pure Property;
   }
 }
 
