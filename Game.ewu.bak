@@ -1244,7 +1244,7 @@ class FieldItem : Core::Group
     // TO DO:
     // 
     // Now you can handle the alternation of the property.
-    linkToCounter^ = (linkToCounter^) + 1;
+    //linkToCounter^ = (linkToCounter^) + 1;
   }
 
   $rect <90,0,290,40>

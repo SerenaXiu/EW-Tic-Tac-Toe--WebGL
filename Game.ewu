@@ -376,11 +376,11 @@ class GameField : Core::Group
   method void mChangeCurrentPlayer()
   {
     if ( pCounter%2 == 1) {
-      pCurrentPlayer = Player1;
-      pNextPlayer = Player2;  }
-    else{
       pCurrentPlayer = Player2;
-      pNextPlayer = Player1;}
+      pNextPlayer = Player1;  }
+    else{
+      pCurrentPlayer = Player1;
+      pNextPlayer = Player2;}
 
   }
 
