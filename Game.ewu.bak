@@ -4,7 +4,7 @@ $rect <20,220,220,260>
 $output false
 class GameField : Core::Group
 {
-  $rect <11,430,190,470>
+  $rect <271,0,450,40>
   inherited method Init()
   {
     // TO DO: Write your code here ... 
@@ -62,136 +62,8 @@ class GameField : Core::Group
 
   }
 
-  $rect <270,0,470,40>
+  $rect <-10,350,190,390>
   inherited property Bounds = <0,0,240,320>;
-
-  $rect <10,390,210,430>
-  inherited method UpdateLayout()
-  {
-    // Always invoke the inherited method.
-    super( aSize );
-
-    /*
-
-      HINT:
-
-      This method exists for sophisticated layout calculation. Please note, that in 
-      most cases it is completely sufficient to use the views property 'Layout' to
-      determine how the view should behave when the component is resized.
-
-    */
-
-    /*
-
-      TO DO:
-
-      Put here the code to calculate new position and size of enclosed views. The
-      current (new) size of the component itself is passed in the parameter aSize.
-      For example:
-
-        SomeView.Bounds = rect( 10, 10, aSize.x - 20, aSize.y - 20 );
-
-    */
-  }
-
-  $rect <10,350,210,390>
-  inherited method UpdateViewState()
-  {
-    // Always invoke the inherited method.
-    super( aState );
-
-
-    /*
-
-      HINT 1:
-
-      This method is invoked automatically when the state set of the component has
-      been changed. The new state set can be found in the parameter aState.
-      Following are the important states:
-
-        Enabled   --> The component can react to user inputs.
-
-        Selected  --> The component is selected in context of its owner.
-
-        Focused   --> The component is selected in context of its owner and 
-                      the owner can react to keyboard events. In this manner the
-                      component is also able to react to keyboard events.
-
-        Modal     --> The component is modal. All events are redirected to this
-                      component.
-
-      To determine whether a state is currently active or not you have to test
-      the aState parameter. For example to test the 'Selected' state:
-
-        if ( aState.contains( Core::ViewState[ Selected ]))
-        {
-          ... yes, this component is currently selected.
-        }
-
-    */
-
-    /*
-
-      HINT 2:
-
-      Alternatively you can request this method invocation by executing explicitly
-      following code:
-
-
-        InvalidateViewState();
-
-    */
-      
-    /*
-
-      TO DO 1:
-
-      Put here the code to ensure that the visual aspect of the component does
-      reflect its current state. For example, depending on its 'Enabled' state
-      a component may appear with full colors or pale if it is disabled:
-
-        if ( aState.contains( Core::ViewState[ Enabled ]))
-        {
-          SomeBackgroundView.Opacity = 255;
-          SomeTextView.Color         = #000000FF;
-        }
-        else
-        {
-          SomeBackgroundView.Opacity = 128;
-          SomeTextView.Color         = #00000080;
-        }
-
-
-      TO DO 2:
-
-      You can evaluate here also the state of any other member in your component.
-      For example in a push-button component, the button should appear highlighted
-      as long as the user holds the finger within a touch area of the button:
-
-        if ( SomeTouchHandler.Down && SomeTouchHandler.Inside )
-          HighlightedBackground.Visible = true;
-        else
-          HighlightedBackground.Visible = false;
-
-      The touch handler itself only requests the update method to be called. Use
-      for this purpose 'InvalidateViewState()' method.
-
-
-      TO DO 3:
-
-      You can calculate here also the position/size of views accordingly to the
-      state of any other member in your component. For example in a slider you
-      can calculate the position of the slider knob from some properties like
-      'SliderValue' and 'SliderRange':
-
-        SliderKnob.Bounds.origin.x = ( SliderValue * Bounds.w ) / SliderRange;
-
-      Changing the 'SliderValue' or 'SliderRange' property should only request
-      the update method to be called. Use for this purpose 'InvalidateViewState()'
-      method.
-
-    */
-  }
 
   $rect <20,20,160,60>
   object Views::Line Line
@@ -223,15 +95,6 @@ class GameField : Core::Group
     preset Point2 = <194,185>;
     preset Point1 = <44,185>;
     preset Width = 2;
-  }
-
-  $rect <20,20,160,60>
-  object WidgetSet::PushButton PushButton
-  {
-    preset Bounds = <1005,176,1079,226>;
-    preset OnPress = resetGame;
-    preset Label = "Reset";
-    preset Appearance = WidgetSet::PushButton_Medium;
   }
 
   $rect <20,20,160,60>
@@ -310,37 +173,7 @@ class GameField : Core::Group
     preset linkToCounter = ^pCounter;
   }
 
-  $rect <939,41,1139,81>
-  slot resetGame
-  {
-    //var int32 col = 0;
-    //var int32 row = 0;
-
-    // Assuming, there is a two-dimension array 'tiles' defined with
-    // its Dimension configured as '10, 20', then the following loop
-    // will iterate through all items of the array and initialize
-    // them with random values:
-    /*for ( row = 0; row < 3; row++ )
-      for ( col = 0; col < 3;  col++ )
-        fieldContentArray[ row, col ].FieldContent = "N";     */
-
-      
-    //vField_00.vFieldContent.String = "";
-
-    // vCurrentPlayer
-    //vCurrentPlayerTitle.String = "Current Player: " + paramCurrentPlayer.PlayerName ;
-
-    //THIS WORKS
-    //cleanGameFields();
-    //reenableGameFields();
-        
-
-
-
-
-  }
-
-  $rect <490,310,690,350>
+  $rect <260,350,460,390>
   method void mChangeCurrentPlayer()
   {
     if ( pCounter%2 == 1) {
@@ -352,13 +185,13 @@ class GameField : Core::Group
 
   }
 
-  $rect <270,50,470,90>
+  $rect <471,0,671,40>
   object Game::Players Player1
   {
     preset Value = 1;
   }
 
-  $rect <270,90,470,130>
+  $rect <670,0,870,40>
   object Game::Players Player2
   {
     preset Name = "P2";
@@ -374,10 +207,10 @@ class GameField : Core::Group
     preset Font = Resources::FontLarge;
   }
 
-  $rect <497,177,697,217>
+  $rect <679,180,879,220>
   property int32 pCounter;
 
-  $rect <497,217,697,257>
+  $rect <679,220,879,260>
   onset pCounter
   {
     // The value doesn't change - nothing to do.
@@ -400,13 +233,13 @@ class GameField : Core::Group
 
   }
 
-  $rect <497,257,697,297>
+  $rect <679,260,879,300>
   onget pCounter
   {
     return pure pCounter;
   }
 
-  $rect <500,410,700,450>
+  $rect <1020,30,1220,70>
   slot TestMethod
   {
     CounterUpper();
@@ -429,10 +262,10 @@ class GameField : Core::Group
     preset Appearance = WidgetSet::PushButton_Small;
   }
 
-  $rect <270,140,470,180>
+  $rect <471,40,671,80>
   property Game::Players pCurrentPlayer = Player1;
 
-  $rect <270,180,470,220>
+  $rect <471,80,671,120>
   onset pCurrentPlayer
   {
     // The value doesn't change - nothing to do.
@@ -450,7 +283,7 @@ class GameField : Core::Group
 
   }
 
-  $rect <270,220,470,260>
+  $rect <471,120,671,160>
   onget pCurrentPlayer
   {
     return pure pCurrentPlayer;
@@ -464,62 +297,16 @@ class GameField : Core::Group
     preset Font = Resources::DefaultFont;
   }
 
-  $rect <939,121,1139,161>
-  method void reenableGameFields()
-  {
-    vField_00.SimpleTouchHandler.Enabled = true;
-    vField_01.SimpleTouchHandler.Enabled = true;
-    vField_02.SimpleTouchHandler.Enabled = true;
-    vField_10.SimpleTouchHandler.Enabled = true;
-    vField_11.SimpleTouchHandler.Enabled = true;
-    vField_12.SimpleTouchHandler.Enabled = true;
-    vField_20.SimpleTouchHandler.Enabled = true;
-    vField_21.SimpleTouchHandler.Enabled = true;
-    vField_22.SimpleTouchHandler.Enabled = true;
-
-  }
-
-  $rect <939,81,1139,121>
-  method void cleanGameFields()
-  {
-    //fieldContentArray[0,0].FieldContent == "X";
-
-    vField_00.FieldContent = "";
-    vField_01.FieldContent = "";
-    vField_02.FieldContent = "";
-    vField_10.FieldContent = "";
-    vField_11.FieldContent = "";
-    vField_12.FieldContent = "";
-    vField_20.FieldContent = "";
-    vField_21.FieldContent = "";
-    vField_22.FieldContent = "";
-
-  }
-
-  // Reset Logic (old)
-  note group Note
-  {
-    attr Bounds = <930,1,1150,260>;
-  }
-
-  $rect <510,30,710,70>
+  $rect <1020,70,1220,110>
   method void CounterUpper()
   {
     pCounter += 1;
   }
 
-  $rect <260,-50,460,-10>
-  object Game::Players DefaultPlayer
-  {
-    preset Name = "P1";
-    preset Icon = "X";
-    preset Value = 1;
-  }
-
-  $rect <270,270,470,310>
+  $rect <670,40,870,80>
   property Game::Players pNextPlayer = Player2;
 
-  $rect <270,310,470,350>
+  $rect <670,80,870,120>
   onset pNextPlayer
   {
     // The value doesn't change - nothing to do.
@@ -535,7 +322,7 @@ class GameField : Core::Group
     vNextPlayerTitle.String = "Next Player: " + pNextPlayer.Name ;
   }
 
-  $rect <270,350,470,390>
+  $rect <670,120,870,160>
   onget pNextPlayer
   {
     return pure pNextPlayer;
@@ -549,10 +336,10 @@ class GameField : Core::Group
     preset Font = Resources::DefaultFont;
   }
 
-  $rect <270,400,470,440>
+  $rect <470,180,670,220>
   property string pMsgText;
 
-  $rect <270,440,470,480>
+  $rect <470,220,670,260>
   onset pMsgText
   {
     // The value doesn't change - nothing to do.
@@ -568,7 +355,7 @@ class GameField : Core::Group
     vMsgText.String = pMsgText;
   }
 
-  $rect <270,480,470,520>
+  $rect <470,260,670,300>
   onget pMsgText
   {
     return pure pMsgText;
@@ -582,7 +369,7 @@ class GameField : Core::Group
     preset Font = Resources::FontSmall;
   }
 
-  $rect <730,370,930,410>
+  $rect <260,60,460,100>
   array Game::FieldItem aFieldItems[ 3,3 ] =
   (
     Default[0, 0] = vField_00;
@@ -596,7 +383,7 @@ class GameField : Core::Group
     Default[2, 2] = vField_22;
   );
 
-  $rect <730,410,930,450>
+  $rect <1020,150,1220,190>
   array int32 aValueState[ 8 ] =
   (
     Default[0] = 0;
@@ -609,7 +396,7 @@ class GameField : Core::Group
     Default[7] = 0;
   );
 
-  $rect <720,199,920,239>
+  $rect <460,350,660,390>
   method void mCheckIfWon()
   {
     var int32 col;
@@ -659,7 +446,7 @@ class GameField : Core::Group
       
   }
 
-  $rect <720,250,920,290>
+  $rect <660,350,860,390>
   method bool mCheckWhoWon( arg int32 aValueSum )
   {
     switch (aValueSum){
@@ -669,7 +456,7 @@ class GameField : Core::Group
     }
   }
 
-  $rect <730,300,930,340>
+  $rect <1020,110,1220,150>
   method void mUpdateValueState()
   {
     /* ALL for Debugging Purpose
@@ -768,11 +555,10 @@ class GameField : Core::Group
     preset Font = Resources::DefaultFont;
   }
 
-  $rect <730,460,930,500>
-  method int32 Method( arg int32 aArg1 )
+  // Debugging Purpose
+  note group Note
   {
-    /* The template just returns the given argument... */
-    return aArg1;
+    attr Bounds = <999,-10,1239,199>;
   }
 }
 
@@ -1587,10 +1373,10 @@ $rect <20,180,220,220>
 $output false
 class GameTitle : Core::Group
 {
-  $rect <270,280,470,320>
+  $rect <0,340,200,380>
   inherited property Bounds = <0,0,240,320>;
 
-  $rect <270,230,470,270>
+  $rect <0,450,200,490>
   inherited method UpdateLayout()
   {
     // Always invoke the inherited method.
@@ -1619,7 +1405,7 @@ class GameTitle : Core::Group
     */
   }
 
-  $rect <270,190,470,230>
+  $rect <0,410,200,450>
   inherited method UpdateViewState()
   {
     // Always invoke the inherited method.
@@ -1717,39 +1503,14 @@ class GameTitle : Core::Group
     */
   }
 
-  // To do:
-  // 
-  // - Adjust the visible size of your component (the thick blue border).
-  // 
-  // - The simplest way to compose the appearance of the component is to use the \
-  // 'Views' and 'Widget Sets' from the Gallery.
-  // 
-  // - To react to touch or keyboard events use the templates from the Gallery folder \
-  // 'Event Handlers'.
-  // 
-  // - To perform transitions (animations) use the templates from the Gallery folder \
-  // 'Effects'.
-  // 
-  // - To implement the interface of the component use the 'Property' template from \
-  // the Gallery folder 'Chora'.
-  // 
-  // - To store values use the 'Variable' and 'Array' templates available in the \
-  // Gallery folder 'Chora'.
-  // 
-  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
-  // in the Gallery folder 'Chora'.
-  // 
-  // - In the method 'UpdateViewState()' you can put code to update the state of \
-  // views enclosed in your component.
-  // 
-  // - In the method 'UpdateLayout()' you can put code to perform sophisticated layout \
-  // calculation for enclosed views.
-  note legend Note1
+  // GameTitle Dialog will be dismissed onTouch, and onEnter the Screensaver will \
+  // start
+  note legend Note
   {
-    attr Bounds = <270,330,1050,650>;
+    attr Bounds = <270,100,790,320>;
   }
 
-  $rect <270,100,470,140>
+  $rect <270,40,470,80>
   slot smDismiss
   {
     //Text.Bounds = <0,10,240,52>;
@@ -1761,7 +1522,7 @@ class GameTitle : Core::Group
       Owner.DismissDialog( this, null, null, null, null, null, false );
   }
 
-  $rect <270,60,470,100>
+  $rect <270,0,470,40>
   $output true
   object Core::Timer Timer
   {
@@ -1846,7 +1607,7 @@ class GameTitle : Core::Group
   $reorder Embedded 1
   $reorder AlphaBlended 1
   $reorder Visible 1
-  $reorder Note1 1
+  $reorder Note 1
 }
 
 // The small version of the default font resource. The resource is using 'Roboto' \

@@ -4,8 +4,8 @@ attr active = Game::GameField;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeSelEnd = <51,7>;
-attr codeSelStart = <51,7>;
+attr codeSelEnd = <0,0>;
+attr codeSelStart = <0,0>;
 attr connectInspectors = true;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -67,10 +67,10 @@ view class Game::GameField
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeSelEnd = <99,2>;
-  attr codeSelStart = <99,2>;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <158,-57>;
+  attr scrollTo = <-50,-107>;
   attr zoom = 0.75;
 }
 
@@ -81,7 +81,7 @@ view class Application::Application
   attr codeSelEnd = <51,7>;
   attr codeSelStart = <51,7>;
   attr enableWireMode = false;
-  attr scrollTo = <-11,46>;
+  attr scrollTo = <-43,-66>;
   attr zoom = 1.0;
 }
 
@@ -89,10 +89,10 @@ view class Game::GameTitle
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = smDismiss;
-  attr codeSelEnd = <22,5>;
-  attr codeSelStart = <22,5>;
+  attr codeInspector = UpdateViewState;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <-23,-56>;
+  attr scrollTo = <9,-40>;
   attr zoom = 1.0;
 }
