@@ -663,8 +663,8 @@ class GameField : Core::Group
   method bool mCheckWhoWon( arg int32 aValueSum )
   {
     switch (aValueSum){
-      case 3: {pMsgText = Player1.Name + " has won!"; return true;}
-      case 6: {pMsgText = Player2.Name + " has won!"; return true;}
+      case 3: {pMsgText = Player1.Name + " has won!"; Player1.TotalWins += 1; return true;}
+      case 6: {pMsgText = Player2.Name + " has won!"; Player1.TotalWins += 1; return true;}
       default: return false;  
     }
   }
@@ -1767,7 +1767,8 @@ class GameTitle : Core::Group
   {
     preset OnTrigger = smDismiss;
     preset Period = 0;
-    preset Begin = 500;
+    preset Begin = 5000;
+    preset Enabled = true;
   }
 
   $rect <20,20,160,60>

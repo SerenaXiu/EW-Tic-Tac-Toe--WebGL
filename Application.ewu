@@ -38,6 +38,13 @@ class Application : Core::Root
                    Effects::ShowHideCentered, Effects::ShowHideCentered, null, null, false );
     //PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
                    //Effects::ShowHideCentered, Effects::ShowHideCentered, StartTimer, null, false );
+    GameTitleFull.SimpleTouchHandler.OnEnter = Slot;
+
+    var int32 row;
+    var int32 col;
+    for ( row = 0; row < 3; row++ )
+      for ( col = 0; col < 3;  col++ )
+        vGameField.aFieldItems[row,col].SimpleTouchHandler.OnEnter = Slot;  
   }
 
   $rect <270,0,470,40>
@@ -49,26 +56,28 @@ class Application : Core::Root
     attr Bounds = <519,0,819,200>;
   }
 
-  $rect <560,60,760,100>
+  $rect <570,90,770,130>
   slot StartTimer
   {
-    Timer1.Enabled = true;
+    /*if()
+    {}
+    else {            */
+    Timer1.Enabled = true;  // }
   }
 
-  $rect <560,99,760,139>
+  $rect <570,129,770,169>
   object Core::Timer Timer1
   {
     preset OnTrigger = StartScreenSaver1;
-    preset Period = 5000;
+    preset Period = 20000;
     preset Begin = 0;
-    preset Enabled = true;
+    preset Enabled = false;
   }
 
   // This is a slot method.
-  $rect <560,140,760,180>
+  $rect <570,50,770,90>
   slot StartScreenSaver1
   {
-    //if()
     PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
                    Effects::ShowHideCentered, Effects::ShowHideCentered, StartTimer, null, false );
   }
@@ -169,5 +178,17 @@ class Application : Core::Root
   onget P2Wins
   {
     return pure P2Wins;
+  }
+
+  $rect <480,370,680,410>
+  slot Slot
+  {
+    Text.String = "Pressed!!!!";
+    // If the timer is already active, stop and reset it now.
+    // If the timer was inactive, nothing will happen.
+    Timer1.Enabled = false;
+
+    // Then start the timer again.
+    Timer1.Enabled = true;
   }
 }

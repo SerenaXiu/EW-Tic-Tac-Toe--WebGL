@@ -3,10 +3,10 @@ $version 1.0
 attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,0>;
+attr codeFirstPos = <0,5>;
 attr codeInspector = Application::Application.Init;
-attr codeSelEnd = <39,1>;
-attr codeSelStart = <39,1>;
+attr codeSelEnd = <40,7>;
+attr codeSelStart = <40,7>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -52,27 +52,15 @@ view unit Game
   attr zoom = 1.0;
 }
 
-view class Game::GameTitle
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = smDismiss;
-  attr codeSelEnd = <21,5>;
-  attr codeSelStart = <21,5>;
-  attr enableWireMode = false;
-  attr scrollTo = <-23,-40>;
-  attr zoom = 1.0;
-}
-
 view class Game::FieldItem
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = Init;
-  attr codeSelEnd = <25,4>;
-  attr codeSelStart = <25,4>;
+  attr codeFirstPos = <0,12>;
+  attr codeInspector = OnTouchFieldEvent;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <-162,-12>;
+  attr scrollTo = <-240,-12>;
   attr zoom = 0.75;
 }
 
@@ -91,12 +79,24 @@ view class Game::GameField
 view class Application::Application
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
+  attr codeFirstPos = <0,5>;
   attr codeInspector = Init;
-  attr codeSelEnd = <39,1>;
-  attr codeSelStart = <39,1>;
+  attr codeSelEnd = <40,7>;
+  attr codeSelStart = <40,7>;
   attr enableWireMode = false;
-  attr scrollTo = <41,73>;
+  attr scrollTo = <69,9>;
+  attr zoom = 1.0;
+}
+
+view class Game::GameTitle
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = smDismiss;
+  attr codeSelEnd = <22,5>;
+  attr codeSelStart = <22,5>;
+  attr enableWireMode = false;
+  attr scrollTo = <-23,-56>;
   attr zoom = 1.0;
 }
 

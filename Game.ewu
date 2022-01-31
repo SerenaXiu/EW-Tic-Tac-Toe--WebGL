@@ -1767,7 +1767,8 @@ class GameTitle : Core::Group
   {
     preset OnTrigger = smDismiss;
     preset Period = 0;
-    preset Begin = 500;
+    preset Begin = 5000;
+    preset Enabled = false;
   }
 
   $rect <20,20,160,60>
