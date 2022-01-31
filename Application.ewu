@@ -28,67 +28,75 @@ $rect <20,30,220,70>
 $output false
 class Application : Core::Root
 {
-  $rect <280,170,460,210>
+  $rect <280,0,460,40>
   inherited method Init()
   {
-    P1Wins = ^vGameField.Player1.TotalWins;
-    P2Wins = ^vGameField.Player2.TotalWins;
-    //PresentDialog( vGameField, null, null, null, null, null, null, null, null, false );
-    PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
-                   Effects::ShowHideCentered, Effects::ShowHideCentered, null, null, false );
-    //PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
-                   //Effects::ShowHideCentered, Effects::ShowHideCentered, StartTimer, null, false );
-    GameTitleFull.SimpleTouchHandler.OnEnter = Slot;
 
+    PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
+                   Effects::ShowHideCentered, Effects::ShowHideCentered, null /*method called when presented*/, null, false );
+
+
+    // when full title screen, resetBtn and gamefields are pressed, resets timer for screensaver!
     var int32 row;
     var int32 col;
     for ( row = 0; row < 3; row++ )
       for ( col = 0; col < 3;  col++ )
-        vGameField.aFieldItems[row,col].SimpleTouchHandler.OnEnter = Slot;  
+        vGameField.aFieldItems[row,col].SimpleTouchHandler.OnEnter = ResetTimer;
+    GameTitleFull.SimpleTouchHandler.OnEnter = ResetTimer;
+    ResetBtn.OnEnter = ResetTimer;  
+
+    // Regarding wins display
+    attachobserver onUpdateP1Wins, vGameField.Player1;
+    attachobserver onUpdateP2Wins, vGameField.Player2; 
+    //linkToP1Wins = ^vGameField.Player1.TotalWins;
+    //linkToP2Wins = ^vGameField.Player2.TotalWins;    
   }
 
-  $rect <270,0,470,40>
+  $rect <0,330,200,370>
   inherited property Bounds = <0,0,240,320>;
 
-  // Disabled
-  note group Note
+  // Screensaver
+  note group nScreensaver
   {
-    attr Bounds = <519,0,819,200>;
+    attr Bounds = <270,130,490,330>;
   }
 
-  $rect <570,90,770,130>
+  $rect <281,200,481,240>
   slot StartTimer
   {
     /*if()
     {}
     else {            */
-    Timer1.Enabled = true;  // }
+    TimerScreenSaver.Enabled = true;  // }
   }
 
-  $rect <570,129,770,169>
-  object Core::Timer Timer1
+  $rect <281,239,481,279>
+  object Core::Timer TimerScreenSaver
   {
-    preset OnTrigger = StartScreenSaver1;
+    preset OnTrigger = StartScreenSaver;
     preset Period = 20000;
     preset Begin = 0;
     preset Enabled = false;
   }
 
   // This is a slot method.
-  $rect <570,50,770,90>
-  slot StartScreenSaver1
+  $rect <281,160,481,200>
+  slot StartScreenSaver
   {
     PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
-                   Effects::ShowHideCentered, Effects::ShowHideCentered, StartTimer, null, false );
+                   Effects::ShowHideCentered, Effects::ShowHideCentered, null, null, false );
   }
 
-  $rect <270,110,470,150>
+  $rect <270,80,470,120>
   slot onTouchResetBtn
   {
     //TRYING
     Remove( vGameField);
     vGameField = new Game::GameField;
     Add( vGameField, 180 );
+
+    attachobserver onUpdateP1Wins, vGameField.Player1;
+    attachobserver onUpdateP2Wins, vGameField.Player2;  
 
   }
 
@@ -110,7 +118,7 @@ class Application : Core::Root
     preset Bounds = <0,0,240,320>;
   }
 
-  $rect <270,60,470,100>
+  $rect <270,40,470,80>
   var Game::GameField vGameField = GameField;
 
   $rect <20,20,160,60>
@@ -123,72 +131,91 @@ class Application : Core::Root
   }
 
   $rect <20,20,160,60>
-  object Views::Text Text
+  object Views::Text vTotalWins
   {
     preset Bounds = <61,239,179,269>;
     preset String = "- Total Wins -\nP1: 0   P2: 0";
     preset Font = Game::FontSmall;
   }
 
-  $rect <260,240,460,280>
-  property ^int32 P1Wins;
-
-  $rect <260,280,460,320>
-  onset P1Wins
+  $rect <281,280,481,320>
+  slot ResetTimer
   {
-    // The value doesn't change - nothing to do.
-    if ( pure P1Wins == value )
-      return;
+    //Text.String = "Pressed!!!!";
 
-    // Remember the property's new value.
-    pure P1Wins = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-    Text.String = "- Total Wins -\nP1: "+string(P1Wins^)+"   P2: 0";
-  }
-
-  $rect <260,320,460,360>
-  onget P1Wins
-  {
-    return pure P1Wins;
-  }
-
-  $rect <480,240,680,280>
-  property ^int32 P2Wins;
-
-  $rect <480,280,680,320>
-  onset P2Wins
-  {
-    // The value doesn't change - nothing to do.
-    if ( pure P2Wins == value )
-      return;
-
-    // Remember the property's new value.
-    pure P2Wins = value;
-
-    // TO DO:
-    // 
-    // Now you can handle the alternation of the property.
-    Text.String = "- Total Wins -\nP1: "+string(P2Wins^)+"   P2: 0";
-  }
-
-  $rect <480,320,680,360>
-  onget P2Wins
-  {
-    return pure P2Wins;
-  }
-
-  $rect <480,370,680,410>
-  slot Slot
-  {
-    Text.String = "Pressed!!!!";
     // If the timer is already active, stop and reset it now.
     // If the timer was inactive, nothing will happen.
-    Timer1.Enabled = false;
+    TimerScreenSaver.Enabled = false;
 
     // Then start the timer again.
-    Timer1.Enabled = true;
+    TimerScreenSaver.Enabled = true;
+  }
+
+  $rect <510,170,710,210>
+  slot onUpdateP1Wins
+  {
+    pP1Wins += 1;
+  }
+
+  $rect <510,40,710,80>
+  property int32 pP1Wins;
+
+  $rect <510,80,710,120>
+  onset pP1Wins
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure pP1Wins == value )
+      return;
+
+    // Remember the property's new value.
+    pure pP1Wins = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+    vTotalWins.String = "- Total Wins -\nP1: "+string(pP1Wins)+"   P2: "+string(pP2Wins);
+  }
+
+  $rect <510,120,710,160>
+  onget pP1Wins
+  {
+    return pure pP1Wins;
+  }
+
+  $rect <700,170,900,210>
+  slot onUpdateP2Wins
+  {
+    pP2Wins += 1;
+  }
+
+  $rect <710,40,910,80>
+  property int32 pP2Wins;
+
+  $rect <710,80,910,120>
+  onset pP2Wins
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure pP2Wins == value )
+      return;
+
+    // Remember the property's new value.
+    pure pP2Wins = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+    vTotalWins.String = "- Total Wins -\nP1: "+string(pP1Wins)+"   P2: "+string(pP2Wins);
+  }
+
+  $rect <710,120,910,160>
+  onget pP2Wins
+  {
+    return pure pP2Wins;
+  }
+
+  // Player Wins
+  note group nPlayerWins
+  {
+    attr Bounds = <500,0,920,220>;
   }
 }

@@ -459,7 +459,7 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text vCurrentPlayerTitle
   {
-    preset Bounds = <0,28,119,58>;
+    preset Bounds = <0,38,119,68>;
     preset String = "Current Player: ";
     preset Font = Resources::DefaultFont;
   }
@@ -544,7 +544,7 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text vNextPlayerTitle
   {
-    preset Bounds = <119,28,240,58>;
+    preset Bounds = <119,38,240,68>;
     preset String = "Next Player: ";
     preset Font = Resources::DefaultFont;
   }
@@ -663,8 +663,8 @@ class GameField : Core::Group
   method bool mCheckWhoWon( arg int32 aValueSum )
   {
     switch (aValueSum){
-      case 3: {pMsgText = Player1.Name + " has won!"; Player1.TotalWins += 1; return true;}
-      case 6: {pMsgText = Player2.Name + " has won!"; Player1.TotalWins += 1; return true;}
+      case 3: {pMsgText = Player1.Name + " has won!"; Player1.TotalWins += 1; notifyobservers Player1; return true;}
+      case 6: {pMsgText = Player2.Name + " has won!"; Player2.TotalWins += 1; notifyobservers Player2; return true;}
       default: return false;  
     }
   }
