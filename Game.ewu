@@ -4,7 +4,7 @@ $rect <20,220,220,260>
 $output false
 class GameField : Core::Group
 {
-  $rect <20,439,199,479>
+  $rect <11,430,190,470>
   inherited method Init()
   {
     // TO DO: Write your code here ... 
@@ -193,38 +193,6 @@ class GameField : Core::Group
     */
   }
 
-  // To do:
-  // 
-  // - Adjust the visible size of your component (the thick blue border).
-  // 
-  // - The simplest way to compose the appearance of the component is to use the \
-  // 'Views' and 'Widget Sets' from the Gallery.
-  // 
-  // - To react to touch or keyboard events use the templates from the Gallery folder \
-  // 'Event Handlers'.
-  // 
-  // - To perform transitions (animations) use the templates from the Gallery folder \
-  // 'Effects'.
-  // 
-  // - To implement the interface of the component use the 'Property' template from \
-  // the Gallery folder 'Chora'.
-  // 
-  // - To store values use the 'Variable' and 'Array' templates available in the \
-  // Gallery folder 'Chora'.
-  // 
-  // - To implement behavior use the 'Method' and 'Slot Method' templates available \
-  // in the Gallery folder 'Chora'.
-  // 
-  // - In the method 'UpdateViewState()' you can put code to update the state of \
-  // views enclosed in your component.
-  // 
-  // - In the method 'UpdateLayout()' you can put code to perform sophisticated layout \
-  // calculation for enclosed views.
-  note legend Note1
-  {
-    attr Bounds = <0,500,780,820>;
-  }
-
   $rect <20,20,160,60>
   object Views::Line Line
   {
@@ -401,7 +369,7 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text vCounter
   {
-    preset Bounds = <202,290,239,320>;
+    preset Bounds = <7,3,44,33>;
     preset String = "0";
     preset Font = Resources::FontLarge;
   }
@@ -424,8 +392,8 @@ class GameField : Core::Group
     // Now you can handle the alternation of the property.
 
 
-    updateValueState();
-    checkIfWon();
+    mUpdateValueState();
+    mCheckIfWon();
     mChangeCurrentPlayer();
     vCounter.String = pCounter;
     // 
@@ -439,7 +407,7 @@ class GameField : Core::Group
   }
 
   $rect <500,410,700,450>
-  slot TestMethod2
+  slot TestMethod
   {
     CounterUpper();
 
@@ -455,10 +423,10 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object WidgetSet::PushButton TestButton
   {
-    preset Bounds = <165,3,240,53>;
-    preset OnPress = TestMethod2;
-    preset Label = "Test2";
-    preset Appearance = WidgetSet::PushButton_Medium;
+    preset Bounds = <179,3,240,28>;
+    preset OnPress = TestMethod;
+    preset Label = "Test";
+    preset Appearance = WidgetSet::PushButton_Small;
   }
 
   $rect <270,140,470,180>
@@ -491,7 +459,7 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text vCurrentPlayerTitle
   {
-    preset Bounds = <0,26,119,56>;
+    preset Bounds = <0,28,119,58>;
     preset String = "Current Player: ";
     preset Font = Resources::DefaultFont;
   }
@@ -581,10 +549,10 @@ class GameField : Core::Group
     preset Font = Resources::DefaultFont;
   }
 
-  $rect <270,480,470,520>
+  $rect <270,400,470,440>
   property string pMsgText;
 
-  $rect <270,520,470,560>
+  $rect <270,440,470,480>
   onset pMsgText
   {
     // The value doesn't change - nothing to do.
@@ -600,7 +568,7 @@ class GameField : Core::Group
     vMsgText.String = pMsgText;
   }
 
-  $rect <270,560,470,600>
+  $rect <270,480,470,520>
   onget pMsgText
   {
     return pure pMsgText;
@@ -609,8 +577,8 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text vMsgText
   {
-    preset Bounds = <-1,-2,239,28>;
-    preset String = "Hi";
+    preset Bounds = <-1,11,239,41>;
+    preset String = "";
     preset Font = Resources::FontSmall;
   }
 
@@ -642,43 +610,43 @@ class GameField : Core::Group
   );
 
   $rect <720,199,920,239>
-  method void checkIfWon()
+  method void mCheckIfWon()
   {
     var int32 col;
-    var int32 row; /*
-    for ( row = 0; row < 3; row++ )
-      for ( col = 0; col < 3;  col++ )    */
-
+    var int32 row;
     var bool aWin = false;
+    var int32 fieldSum;
 
     /*if (aFieldItems[0,0].FieldValue == 0 || aFieldItems[0,1].FieldValue == 0 || aFieldItems[0,2].FieldValue == 0 ){} 
     else{ aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
           aWin = checkWhoWon(aValueState[0]);
          } */
 
+    /*  USING values */
+    // checking rows
     for ( row = 0; row < 3; row++ ){ 
       if (aFieldItems[row,0].FieldValue == 0 || aFieldItems[row,1].FieldValue == 0 || aFieldItems[row,2].FieldValue == 0 ){} 
-      else{ aValueState[row] = aFieldItems[row,0].FieldValue + aFieldItems[row,1].FieldValue + aFieldItems[row,2].FieldValue;
-            aWin = checkWhoWon(aValueState[row]);
+      else{ fieldSum = aFieldItems[row,0].FieldValue + aFieldItems[row,1].FieldValue + aFieldItems[row,2].FieldValue;
+            aWin = mCheckWhoWon(fieldSum);
            } 
     }
-
+    // checking columns
     for ( col = 0; col < 3;  col++ ){
       if (aFieldItems[0, col].FieldValue == 0 || aFieldItems[1, col].FieldValue == 0 || aFieldItems[2, col].FieldValue == 0 ){} 
-      else{ aValueState[col] = aFieldItems[0, col].FieldValue + aFieldItems[1, col].FieldValue + aFieldItems[2, col].FieldValue;
-            aWin = checkWhoWon(aValueState[col]);
+      else{ fieldSum = aFieldItems[0, col].FieldValue + aFieldItems[1, col].FieldValue + aFieldItems[2, col].FieldValue;
+            aWin = mCheckWhoWon(fieldSum);
            }
     }
-
+    // checking diagonals
     if (aFieldItems[0,0].FieldValue == 0 || aFieldItems[1,1].FieldValue == 0 || aFieldItems[2,2].FieldValue == 0 ){} 
-    else{ aValueState[6] = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
-          aWin = checkWhoWon(aValueState[6]);
+    else{ fieldSum = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
+          aWin = mCheckWhoWon(fieldSum);
+         }
+    if (aFieldItems[2,0].FieldValue == 0 || aFieldItems[1,1].FieldValue == 0 || aFieldItems[0,2].FieldValue == 0 ){} 
+    else{ fieldSum = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue;
+          aWin = mCheckWhoWon(fieldSum);
          }
 
-    if (aFieldItems[2,0].FieldValue == 0 || aFieldItems[1,1].FieldValue == 0 || aFieldItems[0,2].FieldValue == 0 ){} 
-    else{ aValueState[7] = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue;
-          aWin = checkWhoWon(aValueState[7]);
-         }
       
     // if all the fields are filled and no winner exist = text displays a DRAW
     if (!aWin && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
@@ -692,41 +660,17 @@ class GameField : Core::Group
   }
 
   $rect <720,250,920,290>
-  method bool checkWhoWon( arg int32 aValueSum )
+  method bool mCheckWhoWon( arg int32 aValueSum )
   {
     switch (aValueSum){
-      case 3: {pMsgText = Player1.Name + "has won!"; return true;}
-      case 6: {pMsgText = Player2.Name + "has won!"; return true;}
+      case 3: {pMsgText = Player1.Name + " has won!"; Player1.TotalWins += 1; return true;}
+      case 6: {pMsgText = Player2.Name + " has won!"; Player1.TotalWins += 1; return true;}
       default: return false;  
     }
   }
 
-  $rect <733,135,933,175>
-  method void checkFields()
-  {
-    /*
-      check rows, columns and diagonals if its filled. if yes then call methods checkIfWon
-    */
-
-
-
-    if(   (vField_00.FieldContent == vField_01.FieldContent && vField_01.FieldContent == vField_02.FieldContent)
-       || (vField_10.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_12.FieldContent) 
-       || (vField_20.FieldContent == vField_21.FieldContent && vField_21.FieldContent == vField_22.FieldContent) 
-       || (vField_00.FieldContent == vField_10.FieldContent && vField_10.FieldContent == vField_20.FieldContent) 
-       || (vField_01.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_21.FieldContent) 
-       || (vField_02.FieldContent == vField_12.FieldContent && vField_12.FieldContent == vField_22.FieldContent) 
-       || (vField_00.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_22.FieldContent) 
-       || (vField_02.FieldContent == vField_11.FieldContent && vField_11.FieldContent == vField_20.FieldContent) ){
-        
-        checkIfWon();
-       } 
-
-
-  }
-
   $rect <730,300,930,340>
-  method void updateValueState()
+  method void mUpdateValueState()
   {
     /* ALL for Debugging Purpose
      * updates the sum of each row, columns and diagonal
@@ -811,7 +755,7 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text rd1
   {
-    preset Bounds = <19,235,44,265>;
+    preset Bounds = <194,58,219,88>;
     preset String = 0;
     preset Font = Resources::DefaultFont;
   }
@@ -819,33 +763,9 @@ class GameField : Core::Group
   $rect <20,20,160,60>
   object Views::Text rd0
   {
-    preset Bounds = <195,235,220,265>;
+    preset Bounds = <19,58,44,88>;
     preset String = 0;
     preset Font = Resources::DefaultFont;
-  }
-
-  $rect <260,420,460,460>
-  slot Slot
-  {
-    aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
-    aValueState[1] = aFieldItems[1,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[1,2].FieldValue;
-    aValueState[2] = aFieldItems[2,0].FieldValue + aFieldItems[2,1].FieldValue + aFieldItems[2,2].FieldValue;
-    // all columns
-    aValueState[3] = aFieldItems[0,0].FieldValue + aFieldItems[1,0].FieldValue + aFieldItems[2,0].FieldValue;
-    aValueState[4] = aFieldItems[0,1].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,1].FieldValue;
-    aValueState[5] = aFieldItems[0,2].FieldValue + aFieldItems[1,2].FieldValue + aFieldItems[2,2].FieldValue;
-    // all diagonals
-    aValueState[6] = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
-    aValueState[7] = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue;
-
-    rr0.String = aValueState[0];
-    rr1.String = aValueState[1];
-    rr2.String = aValueState[2];
-    rc0.String = aValueState[3];
-    rc1.String = aValueState[4];
-    rc2.String = aValueState[5];
-    rd0.String = aValueState[6];
-    rd1.String = aValueState[7];
   }
 
   $rect <730,460,930,500>
@@ -1614,10 +1534,10 @@ class Players
     return pure Icon;
   }
 
-  $rect <150,180,350,220>
+  $rect <40,180,240,220>
   property int32 Value;
 
-  $rect <150,220,350,260>
+  $rect <40,220,240,260>
   onset Value
   {
     // The value doesn't change - nothing to do.
@@ -1632,10 +1552,34 @@ class Players
     // Now you can handle the alternation of the property.
   }
 
-  $rect <150,260,350,300>
+  $rect <40,260,240,300>
   onget Value
   {
     return pure Value;
+  }
+
+  $rect <270,180,470,220>
+  property int32 TotalWins;
+
+  $rect <270,220,470,260>
+  onset TotalWins
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure TotalWins == value )
+      return;
+
+    // Remember the property's new value.
+    pure TotalWins = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <270,260,470,300>
+  onget TotalWins
+  {
+    return pure TotalWins;
   }
 }
 
@@ -1643,10 +1587,10 @@ $rect <20,180,220,220>
 $output false
 class GameTitle : Core::Group
 {
-  $rect <10,440,210,480>
+  $rect <270,280,470,320>
   inherited property Bounds = <0,0,240,320>;
 
-  $rect <10,390,210,430>
+  $rect <270,230,470,270>
   inherited method UpdateLayout()
   {
     // Always invoke the inherited method.
@@ -1675,7 +1619,7 @@ class GameTitle : Core::Group
     */
   }
 
-  $rect <10,350,210,390>
+  $rect <270,190,470,230>
   inherited method UpdateViewState()
   {
     // Always invoke the inherited method.
@@ -1904,10 +1848,73 @@ class GameTitle : Core::Group
   $reorder Note1 1
 }
 
+// The small version of the default font resource. The resource is using 'Roboto' \
+// TrueType font with 18 pixel height.
+$rect <490,380,710,420>
+$output false
+resource Resources::Font FontSmall
+{
+  attr fontname FontName = Roboto;
+  attr fontheight Height = 14;
+  attr fontquality Quality = High;
+  attr fontranges Ranges = 0x20-0xFF;
+  attr fontaspectratio AspectRatio = 1.0;
+  attr fontbold Bold = false;
+  attr fontitalic Italic = false;
+  attr fontkerning Kerning = true;
+  attr fontheightmode HeightMode = Compatible;
+  attr fontrowdistance RowDistance;
+}
+
 $rect <250,270,450,310>
 $output false
-class ValueArray
+class GameResult
 {
-  $rect <70,50,270,90>
-  array Game::FieldItem Array[ 8 ];
+  $rect <-561,35,-361,75>
+  property int32 Player1;
+
+  $rect <-561,75,-361,115>
+  onset Player1
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Player1 == value )
+      return;
+
+    // Remember the property's new value.
+    pure Player1 = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <-561,115,-361,155>
+  onget Player1
+  {
+    return pure Player1;
+  }
+
+  $rect <-560,160,-360,200>
+  property int32 Player2;
+
+  $rect <-560,200,-360,240>
+  onset Player2
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Player2 == value )
+      return;
+
+    // Remember the property's new value.
+    pure Player2 = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+  }
+
+  $rect <-560,240,-360,280>
+  onget Player2
+  {
+    return pure Player2;
+  }
 }

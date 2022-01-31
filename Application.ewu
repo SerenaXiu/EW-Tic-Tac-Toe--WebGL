@@ -28,15 +28,12 @@ $rect <20,30,220,70>
 $output false
 class Application : Core::Root
 {
-  $rect <20,20,160,60>
-  object Game::GameTitle GameTitleFull;
-
-  $rect <10,350,190,390>
+  $rect <280,170,460,210>
   inherited method Init()
   {
-    // TO DO: Write your code here ... 
-    //vGameField = new Game::GameField;
-    PresentDialog( vGameField, null, null, null, null, null, null, null, null, false );
+    P1Wins = ^vGameField.Player1.TotalWins;
+    P2Wins = ^vGameField.Player2.TotalWins;
+    //PresentDialog( vGameField, null, null, null, null, null, null, null, null, false );
     PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
                    Effects::ShowHideCentered, Effects::ShowHideCentered, null, null, false );
     //PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
@@ -45,6 +42,12 @@ class Application : Core::Root
 
   $rect <270,0,470,40>
   inherited property Bounds = <0,0,240,320>;
+
+  // Disabled
+  note group Note
+  {
+    attr Bounds = <519,0,819,200>;
+  }
 
   $rect <560,60,760,100>
   slot StartTimer
@@ -58,6 +61,7 @@ class Application : Core::Root
     preset OnTrigger = StartScreenSaver1;
     preset Period = 5000;
     preset Begin = 0;
+    preset Enabled = true;
   }
 
   // This is a slot method.
@@ -75,9 +79,12 @@ class Application : Core::Root
     //TRYING
     Remove( vGameField);
     vGameField = new Game::GameField;
-    Add( vGameField, 185 );
+    Add( vGameField, 180 );
 
   }
+
+  $rect <20,20,160,60>
+  object Game::GameTitle GameTitleFull;
 
   $rect <20,20,160,60>
   object Views::Rectangle Rectangle
@@ -89,28 +96,78 @@ class Application : Core::Root
   }
 
   $rect <20,20,160,60>
-  object WidgetSet::PushButton ResetBtn
+  object Game::GameField GameField
   {
-    preset Bounds = <45,256,195,306>;
-    preset OnPress = onTouchResetBtn;
-    preset Label = "Reset";
-    preset Appearance = WidgetSet::PushButton_Medium;
+    preset Bounds = <0,0,240,320>;
   }
 
   $rect <270,60,470,100>
   var Game::GameField vGameField = GameField;
 
   $rect <20,20,160,60>
-  object Game::GameField GameField
+  object WidgetSet::PushButton ResetBtn
   {
-    preset Bounds = <0,0,240,320>;
+    preset Bounds = <52,269,189,306>;
+    preset OnPress = onTouchResetBtn;
+    preset Label = "Reset";
+    preset Appearance = WidgetSet::PushButton_Medium;
   }
 
-  // Disabled
-  note group Note
+  $rect <20,20,160,60>
+  object Views::Text Text
   {
-    attr Bounds = <519,0,819,200>;
+    preset Bounds = <61,239,179,269>;
+    preset String = "- Total Wins -\nP1: 0   P2: 0";
+    preset Font = Game::FontSmall;
   }
 
-  $reorder GameTitleFull 178
+  $rect <260,240,460,280>
+  property ^int32 P1Wins;
+
+  $rect <260,280,460,320>
+  onset P1Wins
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure P1Wins == value )
+      return;
+
+    // Remember the property's new value.
+    pure P1Wins = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+    Text.String = "- Total Wins -\nP1: "+string(P1Wins^)+"   P2: 0";
+  }
+
+  $rect <260,320,460,360>
+  onget P1Wins
+  {
+    return pure P1Wins;
+  }
+
+  $rect <480,240,680,280>
+  property ^int32 P2Wins;
+
+  $rect <480,280,680,320>
+  onset P2Wins
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure P2Wins == value )
+      return;
+
+    // Remember the property's new value.
+    pure P2Wins = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+    Text.String = "- Total Wins -\nP1: "+string(P2Wins^)+"   P2: 0";
+  }
+
+  $rect <480,320,680,360>
+  onget P2Wins
+  {
+    return pure P2Wins;
+  }
 }
