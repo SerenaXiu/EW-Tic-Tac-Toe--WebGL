@@ -35,17 +35,17 @@ unit Views
   attr Directory = $Mosaic;
 }
 
-// The 'default' Language. Each project has to contain at least one language brick \
-// called 'Default'
-$rect <540,36,740,76>
-language Default;
-
 // This unit is intended to contain the application class and other GUI components.
-$rect <540,160,740,200>
+$rect <300,40,500,80>
 unit Game
 {
   attr Directory = .\;
 }
+
+// The 'default' Language. Each project has to contain at least one language brick \
+// called 'Default'
+$rect <550,40,750,80>
+language Default;
 
 // Mosaic Framework
 note group Note1
@@ -56,13 +56,13 @@ note group Note1
 // Profile Configuration
 note group Note2
 {
-  attr Bounds = <270,-14,510,96>;
+  attr Bounds = <800,380,1040,490>;
 }
 
 // Languages
 note group Note3
 {
-  attr Bounds = <520,-14,760,96>;
+  attr Bounds = <530,-10,770,100>;
 }
 
 // To do:
@@ -87,13 +87,13 @@ note group Note3
 // the Gallery folder 'Chora'.
 note legend Note4
 {
-  attr Bounds = <770,199,1510,499>;
+  attr Bounds = <770,-10,1510,290>;
 }
 
 // Project Units
 note group Note5
 {
-  attr Bounds = <270,106,759,330>;
+  attr Bounds = <279,-10,519,330>;
 }
 
 // Welcome to Embedded Wizard!
@@ -107,18 +107,18 @@ note group Note5
 // https://doc.embedded-wizard.de/getting-started-stm32f429-discovery
 note legend Note
 {
-  attr Bounds = <770,-10,1510,190>;
+  attr Bounds = <19,339,759,539>;
 }
 
 // This is a profile member for the project. This profile controls the code generation \
 // for the target system.
-$rect <290,36,490,76>
+$rect <820,430,1020,470>
 profile STM32F429 : STM.STM32.RGB565
 {
   attr ScreenOrientation = Normal;
   attr ScreenSize = <240,320>;
   attr Optimization = High;
-  attr ApplicationClass = Application::TheClass;
+  attr ApplicationClass = Application::Application;
   attr ModeOfBitmapResources = Compressed;
   attr ModeOfStringConstants = Compressed;
   attr CleanOutputDirectories = true;
@@ -144,7 +144,7 @@ unit Templates
   attr Directory = $Mosaic\;
 }
 
-$rect <290,160,490,200>
+$rect <300,90,500,130>
 unit Application
 {
   attr Directory = .\;

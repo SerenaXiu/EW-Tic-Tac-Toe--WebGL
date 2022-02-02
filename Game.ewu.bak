@@ -207,10 +207,10 @@ class GameField : Core::Group
     preset Font = Resources::FontLarge;
   }
 
-  $rect <679,180,879,220>
+  $rect <670,180,870,220>
   property int32 pCounter;
 
-  $rect <679,220,879,260>
+  $rect <670,220,870,260>
   onset pCounter
   {
     // The value doesn't change - nothing to do.
@@ -233,7 +233,7 @@ class GameField : Core::Group
 
   }
 
-  $rect <679,260,879,300>
+  $rect <670,260,870,300>
   onget pCounter
   {
     return pure pCounter;

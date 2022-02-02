@@ -1,6 +1,5 @@
 $version 1.0
 
-attr active = Game::GameField;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
@@ -34,8 +33,8 @@ view Project
   attr enableGrid = true;
   attr enableWireMode = false;
   attr grid = 10;
-  attr scrollTo = <135,-43>;
-  attr zoom = 1.0;
+  attr scrollTo = <-11,-48>;
+  attr zoom = 0.75;
 }
 
 view unit Game
@@ -48,51 +47,5 @@ view unit Game
   attr enableWireMode = false;
   attr grid = 10;
   attr scrollTo = <64,148>;
-  attr zoom = 1.0;
-}
-
-view class Game::FieldItem
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = OnGetlinkToCounter;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-240,-12>;
-  attr zoom = 0.75;
-}
-
-view class Game::GameField
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <-50,-107>;
-  attr zoom = 0.75;
-}
-
-view class Application::Application
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeSelEnd = <51,7>;
-  attr codeSelStart = <51,7>;
-  attr enableWireMode = false;
-  attr scrollTo = <-43,-66>;
-  attr zoom = 1.0;
-}
-
-view class Game::GameTitle
-{
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeInspector = UpdateViewState;
-  attr codeSelEnd = <0,0>;
-  attr codeSelStart = <0,0>;
-  attr enableWireMode = false;
-  attr scrollTo = <9,-40>;
   attr zoom = 1.0;
 }

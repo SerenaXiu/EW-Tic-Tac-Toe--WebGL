@@ -173,7 +173,7 @@ class GameField : Core::Group
     preset linkToCounter = ^pCounter;
   }
 
-  $rect <260,350,460,390>
+  $rect <260,350,480,390>
   method void mChangeCurrentPlayer()
   {
     if ( pCounter%2 == 1) {
@@ -239,7 +239,7 @@ class GameField : Core::Group
     return pure pCounter;
   }
 
-  $rect <1020,30,1220,70>
+  $rect <940,220,1140,260>
   slot TestMethod
   {
     CounterUpper();
@@ -297,7 +297,7 @@ class GameField : Core::Group
     preset Font = Resources::DefaultFont;
   }
 
-  $rect <1020,70,1220,110>
+  $rect <940,260,1140,300>
   method void CounterUpper()
   {
     pCounter += 1;
@@ -383,7 +383,7 @@ class GameField : Core::Group
     Default[2, 2] = vField_22;
   );
 
-  $rect <1020,150,1220,190>
+  $rect <940,340,1140,380>
   array int32 aValueState[ 8 ] =
   (
     Default[0] = 0;
@@ -396,7 +396,7 @@ class GameField : Core::Group
     Default[7] = 0;
   );
 
-  $rect <460,350,660,390>
+  $rect <470,350,670,390>
   method void mCheckIfWon()
   {
     var int32 col;
@@ -456,7 +456,7 @@ class GameField : Core::Group
     }
   }
 
-  $rect <1020,110,1220,150>
+  $rect <940,300,1140,340>
   method void mUpdateValueState()
   {
     /* ALL for Debugging Purpose
@@ -558,7 +558,7 @@ class GameField : Core::Group
   // Debugging Purpose
   note group Note
   {
-    attr Bounds = <999,-10,1239,199>;
+    attr Bounds = <919,180,1159,389>;
   }
 }
 
