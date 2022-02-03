@@ -50,13 +50,13 @@ language Default;
 // Mosaic Framework
 note group Note1
 {
-  attr Bounds = <20,-14,260,330>;
+  attr Bounds = <20,-10,260,330>;
 }
 
 // Profile Configuration
 note group Note2
 {
-  attr Bounds = <800,380,1040,490>;
+  attr Bounds = <530,150,770,260>;
 }
 
 // Languages
@@ -112,7 +112,7 @@ note legend Note
 
 // This is a profile member for the project. This profile controls the code generation \
 // for the target system.
-$rect <820,430,1020,470>
+$rect <550,200,750,240>
 profile STM32F429 : STM.STM32.RGB565
 {
   attr ScreenOrientation = Normal;

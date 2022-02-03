@@ -173,7 +173,7 @@ class GameField : Core::Group
     preset linkToCounter = ^pCounter;
   }
 
-  $rect <260,350,460,390>
+  $rect <260,350,480,390>
   method void mChangeCurrentPlayer()
   {
     if ( pCounter%2 == 1) {
@@ -239,7 +239,7 @@ class GameField : Core::Group
     return pure pCounter;
   }
 
-  $rect <1020,30,1220,70>
+  $rect <940,220,1140,260>
   slot TestMethod
   {
     CounterUpper();
@@ -297,7 +297,7 @@ class GameField : Core::Group
     preset Font = Resources::DefaultFont;
   }
 
-  $rect <1020,70,1220,110>
+  $rect <940,260,1140,300>
   method void CounterUpper()
   {
     pCounter += 1;
@@ -383,7 +383,7 @@ class GameField : Core::Group
     Default[2, 2] = vField_22;
   );
 
-  $rect <1020,150,1220,190>
+  $rect <940,340,1140,380>
   array int32 aValueState[ 8 ] =
   (
     Default[0] = 0;
@@ -396,12 +396,12 @@ class GameField : Core::Group
     Default[7] = 0;
   );
 
-  $rect <460,350,660,390>
+  $rect <470,350,670,390>
   method void mCheckIfWon()
   {
     var int32 col;
     var int32 row;
-    var bool aWin = false;
+    //var bool aWin = false;
     var int32 fieldSum;
 
     /*if (aFieldItems[0,0].FieldValue == 0 || aFieldItems[0,1].FieldValue == 0 || aFieldItems[0,2].FieldValue == 0 ){} 
@@ -414,33 +414,39 @@ class GameField : Core::Group
     for ( row = 0; row < 3; row++ ){ 
       if (aFieldItems[row,0].FieldValue == 0 || aFieldItems[row,1].FieldValue == 0 || aFieldItems[row,2].FieldValue == 0 ){} 
       else{ fieldSum = aFieldItems[row,0].FieldValue + aFieldItems[row,1].FieldValue + aFieldItems[row,2].FieldValue;
-            aWin = mCheckWhoWon(fieldSum);
+            hasWon = mCheckWhoWon(fieldSum);
            } 
     }
     // checking columns
     for ( col = 0; col < 3;  col++ ){
       if (aFieldItems[0, col].FieldValue == 0 || aFieldItems[1, col].FieldValue == 0 || aFieldItems[2, col].FieldValue == 0 ){} 
       else{ fieldSum = aFieldItems[0, col].FieldValue + aFieldItems[1, col].FieldValue + aFieldItems[2, col].FieldValue;
-            aWin = mCheckWhoWon(fieldSum);
+            hasWon = mCheckWhoWon(fieldSum);
            }
     }
     // checking diagonals
     if (aFieldItems[0,0].FieldValue == 0 || aFieldItems[1,1].FieldValue == 0 || aFieldItems[2,2].FieldValue == 0 ){} 
     else{ fieldSum = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
-          aWin = mCheckWhoWon(fieldSum);
+          hasWon = mCheckWhoWon(fieldSum);
          }
     if (aFieldItems[2,0].FieldValue == 0 || aFieldItems[1,1].FieldValue == 0 || aFieldItems[0,2].FieldValue == 0 ){} 
     else{ fieldSum = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue;
-          aWin = mCheckWhoWon(fieldSum);
+          hasWon = mCheckWhoWon(fieldSum);
          }
 
       
-    // if all the fields are filled and no winner exist = text displays a DRAW
-    if (!aWin && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
-    if (aWin) {
+    // if all the fields are filled and no winner exist = text displays a DRAW               
+    /*if (aWin) {
       for ( row = 0; row < 3; row++ )
         for ( col = 0; col < 3;  col++ )
           aFieldItems[ row, col ].SimpleTouchHandler.Enabled = false;     
+    }
+    if (!aWin && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}    */
+
+
+
+    if (!hasWon) {
+      if (pCounter == 9){pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
     }
 
       
@@ -450,13 +456,13 @@ class GameField : Core::Group
   method bool mCheckWhoWon( arg int32 aValueSum )
   {
     switch (aValueSum){
-      case 3: {pMsgText = Player1.Name + " has won!"; Player1.TotalWins += 1; notifyobservers Player1; return true;}
-      case 6: {pMsgText = Player2.Name + " has won!"; Player2.TotalWins += 1; notifyobservers Player2; return true;}
+      case 3: {deactivateTouch(); pMsgText = Player1.Name + " has won!"; Player1.TotalWins += 1; notifyobservers Player1; return true;}
+      case 6: {deactivateTouch(); pMsgText = Player2.Name + " has won!"; Player2.TotalWins += 1; notifyobservers Player2; return true;}
       default: return false;  
     }
   }
 
-  $rect <1020,110,1220,150>
+  $rect <940,300,1140,340>
   method void mUpdateValueState()
   {
     /* ALL for Debugging Purpose
@@ -558,7 +564,58 @@ class GameField : Core::Group
   // Debugging Purpose
   note group Note
   {
-    attr Bounds = <999,-10,1239,199>;
+    attr Bounds = <919,180,1159,389>;
+  }
+
+  $rect <260,170,460,210>
+  property bool hasWon = false;
+
+  $rect <260,210,460,250>
+  onset hasWon
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure hasWon == value )
+      return;
+
+    // Remember the property's new value.
+    pure hasWon = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+
+    // deactivate the fields to prevent further playing after a win
+       
+
+    // if all the fields are filled and no winner exist = text displays a DRAW
+    //if (!hasWon && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
+    if (!hasWon && pCounter == 9) {
+      pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);
+    }
+
+    if (hasWon){
+      deactivateTouch();
+    }
+
+      
+
+  }
+
+  $rect <260,250,460,290>
+  onget hasWon
+  {
+    return pure hasWon;
+  }
+
+  $rect <470,390,670,430>
+  method void deactivateTouch()
+  {
+    var int32 col;
+    var int32 row;
+
+    for ( row = 0; row < 3; row++ )
+      for ( col = 0; col < 3;  col++ )
+        aFieldItems[ row, col ].SimpleTouchHandler.Enabled = false;   
   }
 }
 

@@ -1,11 +1,13 @@
 $version 1.0
 
+attr active = Game::GameField;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,0>;
-attr codeSelEnd = <0,0>;
-attr codeSelStart = <0,0>;
-attr connectInspectors = true;
+attr codeFirstPos = <0,9>;
+attr codeInspector = Game::GameField.OnSethasWon;
+attr codeSelEnd = <9,23>;
+attr codeSelStart = <9,23>;
+attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
 attr extractDoc_DeleteOldFiles = false;
@@ -33,7 +35,7 @@ view Project
   attr enableGrid = true;
   attr enableWireMode = false;
   attr grid = 10;
-  attr scrollTo = <-11,-48>;
+  attr scrollTo = <-107,-272>;
   attr zoom = 0.75;
 }
 
@@ -47,5 +49,24 @@ view unit Game
   attr enableWireMode = false;
   attr grid = 10;
   attr scrollTo = <64,148>;
+  attr zoom = 1.0;
+}
+
+view unit Application
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
+}
+
+view class Game::GameField
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,9>;
+  attr codeInspector = OnSethasWon;
+  attr codeSelEnd = <9,23>;
+  attr codeSelStart = <9,23>;
+  attr enableWireMode = false;
+  attr scrollTo = <135,185>;
   attr zoom = 1.0;
 }

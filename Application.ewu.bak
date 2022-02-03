@@ -56,12 +56,12 @@ class Application : Core::Root
   inherited property Bounds = <0,0,240,320>;
 
   // Screensaver
-  note group Note
+  note group nScreensaver
   {
-    attr Bounds = <100,450,401,680>;
+    attr Bounds = <270,130,490,330>;
   }
 
-  $rect <151,540,351,580>
+  $rect <281,200,481,240>
   slot StartTimer
   {
     /*if()
@@ -70,7 +70,7 @@ class Application : Core::Root
     TimerScreenSaver.Enabled = true;  // }
   }
 
-  $rect <151,579,351,619>
+  $rect <281,239,481,279>
   object Core::Timer TimerScreenSaver
   {
     preset OnTrigger = StartScreenSaver;
@@ -80,7 +80,7 @@ class Application : Core::Root
   }
 
   // This is a slot method.
-  $rect <151,500,351,540>
+  $rect <281,160,481,200>
   slot StartScreenSaver
   {
     PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
@@ -138,7 +138,7 @@ class Application : Core::Root
     preset Font = Game::FontSmall;
   }
 
-  $rect <151,620,351,660>
+  $rect <281,280,481,320>
   slot ResetTimer
   {
     //Text.String = "Pressed!!!!";
@@ -214,7 +214,7 @@ class Application : Core::Root
   }
 
   // Player Wins
-  note group Note1
+  note group nPlayerWins
   {
     attr Bounds = <500,0,920,220>;
   }
