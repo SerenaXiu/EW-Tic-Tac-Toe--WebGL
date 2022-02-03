@@ -440,14 +440,9 @@ class GameField : Core::Group
       for ( row = 0; row < 3; row++ )
         for ( col = 0; col < 3;  col++ )
           aFieldItems[ row, col ].SimpleTouchHandler.Enabled = false;     
-    }
-    if (!aWin && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}    */
+    } */
 
 
-
-    if (!hasWon) {
-      if (pCounter == 9){pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
-    }
 
       
   }
@@ -589,13 +584,12 @@ class GameField : Core::Group
 
     // if all the fields are filled and no winner exist = text displays a DRAW
     //if (!hasWon && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
-    if (!hasWon && pCounter == 9) {
-      pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);
-    }
 
+
+    /*
     if (hasWon){
       deactivateTouch();
-    }
+    }      */
 
       
 
