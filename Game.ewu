@@ -434,9 +434,6 @@ class GameField : Core::Group
           hasWon = mCheckWhoWon(fieldSum);
          }
 
-
-
-
       
   }
 
@@ -577,6 +574,11 @@ class GameField : Core::Group
 
     // if all the fields are filled and no winner exist = text displays a DRAW
     //if (!hasWon && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
+
+    if (hasWon && pCounter == 9) {Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
+
+
+
 
 
     /*

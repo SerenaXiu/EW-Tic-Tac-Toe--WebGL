@@ -435,16 +435,6 @@ class GameField : Core::Group
          }
 
       
-    // if all the fields are filled and no winner exist = text displays a DRAW               
-    /*if (aWin) {
-      for ( row = 0; row < 3; row++ )
-        for ( col = 0; col < 3;  col++ )
-          aFieldItems[ row, col ].SimpleTouchHandler.Enabled = false;     
-    } */
-
-
-
-      
   }
 
   $rect <660,350,860,390>
@@ -453,7 +443,7 @@ class GameField : Core::Group
     switch (aValueSum){
       case 3: {deactivateTouch(); pMsgText = Player1.Name + " has won!"; Player1.TotalWins += 1; notifyobservers Player1; return true;}
       case 6: {deactivateTouch(); pMsgText = Player2.Name + " has won!"; Player2.TotalWins += 1; notifyobservers Player2; return true;}
-      default: return false;  
+      default: {if(pCounter == 9) {pMsgText = "It's a DRAW!";} return false;}  
     }
   }
 
@@ -584,6 +574,11 @@ class GameField : Core::Group
 
     // if all the fields are filled and no winner exist = text displays a DRAW
     //if (!hasWon && (pCounter==9)) {pMsgText = "It's a DRAW!"; Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
+
+    if (hasWon && pCounter == 9) {Remove( vCurrentPlayerTitle); Remove( vNextPlayerTitle);}
+
+
+
 
 
     /*

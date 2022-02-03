@@ -3,10 +3,10 @@ $version 1.0
 attr active = Game::GameField;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
-attr codeFirstPos = <0,30>;
-attr codeInspector = Game::GameField.mCheckIfWon;
-attr codeSelEnd = <0,34>;
-attr codeSelStart = <0,34>;
+attr codeFirstPos = <0,0>;
+attr codeInspector = Game::GameField.mCheckWhoWon;
+attr codeSelEnd = <10,3>;
+attr codeSelStart = <10,3>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -62,11 +62,18 @@ view unit Application
 view class Game::GameField
 {
   attr codeColSelect = false;
-  attr codeFirstPos = <0,30>;
-  attr codeInspector = mCheckIfWon;
-  attr codeSelEnd = <0,34>;
-  attr codeSelStart = <0,34>;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = mCheckWhoWon;
+  attr codeSelEnd = <10,3>;
+  attr codeSelStart = <10,3>;
   attr enableWireMode = false;
-  attr scrollTo = <135,185>;
+  attr scrollTo = <141,153>;
+  attr zoom = 1.0;
+}
+
+view class Application::Application
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-39,-87>;
   attr zoom = 1.0;
 }
