@@ -219,6 +219,6 @@ class Application : Core::Root
   }
 }
 
-$rect <280,20,480,60>
+$rect <240,30,440,70>
 $variant WebGL, true
-vclass Application1 : Application::Application;
+vclass Application2 : Application::Application;

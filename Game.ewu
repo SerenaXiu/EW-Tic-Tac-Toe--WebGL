@@ -7,56 +7,32 @@ class GameField : Core::Group
   $rect <271,0,450,40>
   inherited method Init()
   {
-    // TO DO: Write your code here ... 
-    // without ^
-    //vField_00.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
-    //vField_01.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
-    //vField_02.CurrentPlayer.PlayerIcon = pCurrentPlayer.PlayerIcon;
 
-    //vCurrentPlayerTitle.String = "Hi";
+    var int32 col = 0;
+    var int32 row = 0;
 
-    vField_00.linkToCounter = ^pCounter;
-    vField_01.linkToCounter = ^pCounter;
-    vField_02.linkToCounter = ^pCounter;
-    vField_10.linkToCounter = ^pCounter;
-    vField_11.linkToCounter = ^pCounter;
-    vField_12.linkToCounter = ^pCounter;
-    vField_20.linkToCounter = ^pCounter;
-    vField_21.linkToCounter = ^pCounter;
-    vField_22.linkToCounter = ^pCounter;
+    for ( row = 0; row < 3; row++ ){
+      for ( col = 0; col < 3;  col++ ) {
+        aFieldItems[ row, col ].linkToCurrentPlayer = ^pCurrentPlayer;
+        aFieldItems[ row, col ].linkToCounter = ^pCounter; }   }
 
-    //var int32 col = 0;
-    //var int32 row = 0;
-
-    /*for ( row = 0; row < 3; row++ )
-      for ( col = 0; col < 3;  col++ )
-        aFieldItems[ row, col ].linkToCounter = ^pCounter;
-        //fieldContentArray[ row, col ].linkToCurrentPlayer = ^pCurrentPlayer;    */
-
-    vField_00.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_01.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_02.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_10.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_11.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_12.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_20.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_21.linkToCurrentPlayer = ^pCurrentPlayer;
-    vField_22.linkToCurrentPlayer = ^pCurrentPlayer;
                                                            
     vCurrentPlayerTitle.String = "Current Player: " + pCurrentPlayer.Name ;
     vNextPlayerTitle.String = "Next Player: " + pNextPlayer.Name ;
+
+
     /*
-    aValueState[0] = aFieldItems[0,0].FieldValue + aFieldItems[0,1].FieldValue + aFieldItems[0,2].FieldValue;
-    aValueState[1] = aFieldItems[1,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[1,2].FieldValue;
-    aValueState[2] = aFieldItems[2,0].FieldValue + aFieldItems[2,1].FieldValue + aFieldItems[2,2].FieldValue;
+    aValueState[0] = ^aFieldItems[0,0].FieldValue + ^aFieldItems[0,1].FieldValue + ^aFieldItems[0,2].FieldValue;
+    aValueState[1] = ^aFieldItems[1,0].FieldValue + ^aFieldItems[1,1].FieldValue + ^aFieldItems[1,2].FieldValue;
+    aValueState[2] = ^aFieldItems[2,0].FieldValue + ^aFieldItems[2,1].FieldValue + ^aFieldItems[2,2].FieldValue;
     // all columns
-    aValueState[3] = aFieldItems[0,0].FieldValue + aFieldItems[1,0].FieldValue + aFieldItems[2,0].FieldValue;
-    aValueState[4] = aFieldItems[0,1].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,1].FieldValue;
-    aValueState[5] = aFieldItems[0,2].FieldValue + aFieldItems[1,2].FieldValue + aFieldItems[2,2].FieldValue;
+    aValueState[3] = ^aFieldItems[0,0].FieldValue + ^aFieldItems[1,0].FieldValue + ^aFieldItems[2,0].FieldValue;
+    aValueState[4] = ^aFieldItems[0,1].FieldValue + ^aFieldItems[1,1].FieldValue + ^aFieldItems[2,1].FieldValue;
+    aValueState[5] = ^aFieldItems[0,2].FieldValue + ^aFieldItems[1,2].FieldValue + ^aFieldItems[2,2].FieldValue;
     // all diagonals
-    aValueState[6] = aFieldItems[0,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[2,2].FieldValue;
-    aValueState[7] = aFieldItems[2,0].FieldValue + aFieldItems[1,1].FieldValue + aFieldItems[0,2].FieldValue; 
-    */
+    aValueState[6] = ^aFieldItems[0,0].FieldValue + ^aFieldItems[1,1].FieldValue + ^aFieldItems[2,2].FieldValue;
+    aValueState[7] = ^aFieldItems[2,0].FieldValue + ^aFieldItems[1,1].FieldValue + ^aFieldItems[0,2].FieldValue; */
+
 
 
 
@@ -96,6 +72,20 @@ class GameField : Core::Group
     preset Point1 = <44,185>;
     preset Width = 2;
   }
+
+  $rect <260,60,460,100>
+  array Game::FieldItem aFieldItems[ 3,3 ] =
+  (
+    Default[0, 0] = vField_00;
+    Default[0, 1] = vField_01;
+    Default[0, 2] = vField_02;
+    Default[1, 0] = vField_10;
+    Default[1, 1] = vField_11;
+    Default[1, 2] = vField_12;
+    Default[2, 0] = vField_20;
+    Default[2, 1] = vField_21;
+    Default[2, 2] = vField_22;
+  );
 
   $rect <20,20,160,60>
   object Game::FieldItem vField_00
@@ -369,31 +359,17 @@ class GameField : Core::Group
     preset Font = Resources::FontSmall;
   }
 
-  $rect <260,60,460,100>
-  array Game::FieldItem aFieldItems[ 3,3 ] =
-  (
-    Default[0, 0] = vField_00;
-    Default[0, 1] = vField_01;
-    Default[0, 2] = vField_02;
-    Default[1, 0] = vField_10;
-    Default[1, 1] = vField_11;
-    Default[1, 2] = vField_12;
-    Default[2, 0] = vField_20;
-    Default[2, 1] = vField_21;
-    Default[2, 2] = vField_22;
-  );
-
   $rect <940,340,1140,380>
   array int32 aValueState[ 8 ] =
   (
-    Default[0] = 0;
-    Default[1] = 0;
+    Default[0] = ;
+    Default[1] = ;
     Default[2] = 0;
     Default[3] = 0;
     Default[4] = 0;
-    Default[5] = 0;
-    Default[6] = 0;
-    Default[7] = 0;
+    Default[5] = ;
+    Default[6] = ;
+    Default[7] = ;
   );
 
   $rect <470,350,670,390>
@@ -413,15 +389,15 @@ class GameField : Core::Group
     // checking rows
     for ( row = 0; row < 3; row++ ){ 
       if (aFieldItems[row,0].FieldValue == 0 || aFieldItems[row,1].FieldValue == 0 || aFieldItems[row,2].FieldValue == 0 ){} 
-      else{ fieldSum = aFieldItems[row,0].FieldValue + aFieldItems[row,1].FieldValue + aFieldItems[row,2].FieldValue;
-            hasWon = mCheckWhoWon(fieldSum);
+      else{ aValueState[row] = aFieldItems[row,0].FieldValue + aFieldItems[row,1].FieldValue + aFieldItems[row,2].FieldValue;
+            hasWon = mCheckWhoWon(aValueState[row]);
            } 
     }
     // checking columns
     for ( col = 0; col < 3;  col++ ){
       if (aFieldItems[0, col].FieldValue == 0 || aFieldItems[1, col].FieldValue == 0 || aFieldItems[2, col].FieldValue == 0 ){} 
-      else{ fieldSum = aFieldItems[0, col].FieldValue + aFieldItems[1, col].FieldValue + aFieldItems[2, col].FieldValue;
-            hasWon = mCheckWhoWon(fieldSum);
+      else{ aValueState[row] = aFieldItems[0, col].FieldValue + aFieldItems[1, col].FieldValue + aFieldItems[2, col].FieldValue;
+            hasWon = mCheckWhoWon(aValueState[row]);
            }
     }
     // checking diagonals
@@ -552,6 +528,7 @@ class GameField : Core::Group
     attr Bounds = <919,180,1159,389>;
   }
 
+  // will this be shown?
   $rect <260,170,460,210>
   property bool hasWon = false;
 
@@ -605,6 +582,14 @@ class GameField : Core::Group
     for ( row = 0; row < 3; row++ )
       for ( col = 0; col < 3;  col++ )
         aFieldItems[ row, col ].SimpleTouchHandler.Enabled = false;   
+  }
+
+  $rect <20,20,160,60>
+  object Views::Text vMsgText1
+  {
+    preset Bounds = <0,38,240,68>;
+    preset String = "";
+    preset Font = Resources::FontSmall;
   }
 }
 
@@ -1080,33 +1065,21 @@ class FieldItem : Core::Group
     //linkToCounter^ = (linkToCounter^) + 1;
   }
 
+  // this slot method is triggered when player touch the fielditem
   $rect <90,0,290,40>
   slot OnTouchFieldEvent
   {
-    // this sloth method is triggered, when player touches the field
-
-
-    // without^ FieldContent = CurrentPlayer.PlayerIcon;
-
-    //with^ 
-    //FieldContent = CurrentPlayer.Icon;
-
-
-    //
-
+    //trace "FieldItem touched";
     pCurrentPlayer = linkToCurrentPlayer^;
     FieldContent = pCurrentPlayer.Icon;
     FieldValue = pCurrentPlayer.Value; 
 
-    // disable touchhandler after 1 time
+    // disable touchhandler after triggered once
     SimpleTouchHandler.Enabled = false;
-
 
     // Add to Counter
     linkToCounter^ = (linkToCounter^) + 1;
 
-    // down below works!
-    //FieldContent = "B";
 
 
 
@@ -1308,10 +1281,10 @@ autoobject WidgetSet::PushButtonConfig PushButtonConfig
   preset FaceTintFocused = Game::Peach;
   preset FaceTintDisabled = Game::Peach;
   preset FaceTintDefault = Game::Peach;
-  preset FaceActive = WidgetSet::PushButtonMedium;
-  preset FaceFocused = WidgetSet::PushButtonMedium;
-  preset FaceDisabled = WidgetSet::PushButtonMedium;
-  preset FaceDefault = WidgetSet::PushButtonMedium;
+  preset FaceActive = WidgetSet::PushButtonSmall;
+  preset FaceFocused = WidgetSet::PushButtonSmall;
+  preset FaceDisabled = WidgetSet::PushButtonSmall;
+  preset FaceDefault = WidgetSet::PushButtonSmall;
 }
 
 $rect <250,220,450,260>
