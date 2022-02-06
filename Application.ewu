@@ -195,6 +195,7 @@ class Application : Core::Root
     vGameTitleFull.SimpleTouchHandler.OnEnter = ResetTimer;
     vGameScreen.ResetBtn.OnEnter = ResetTimer; 
 
+    attachobserver ResetTimer, null, 1251;
 
       
 
@@ -223,7 +224,7 @@ class Application : Core::Root
   object Core::Timer TimerScreenSaver
   {
     preset OnTrigger = StartScreenSaver;
-    preset Period = 20000;
+    preset Period = 30000;
     preset Begin = 0;
     preset Enabled = false;
   }
