@@ -7,7 +7,6 @@ class GameField : Core::Group
   $rect <271,0,450,40>
   inherited method Init()
   {
-
     var int32 col = 0;
     var int32 row = 0;
 
@@ -1631,7 +1630,7 @@ class GameTitle : Core::Group
 
 // The small version of the default font resource. The resource is using 'Roboto' \
 // TrueType font with 18 pixel height.
-$rect <490,380,710,420>
+$rect <480,370,700,410>
 $output false
 resource Resources::Font FontSmall
 {

@@ -31,6 +31,7 @@ class Application : Core::Root
   $rect <280,0,460,40>
   inherited method Init()
   {
+    var Game::GameTitle GameTitleFull = new Game::GameTitle;
     PresentDialog( GameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
                    Effects::ShowHideCentered, Effects::ShowHideCentered, null /*method called when presented*/, null, false );
 
@@ -47,8 +48,7 @@ class Application : Core::Root
     // Regarding wins display
     attachobserver onUpdateP1Wins, vGameField.Player1;
     attachobserver onUpdateP2Wins, vGameField.Player2; 
-    //linkToP1Wins = ^vGameField.Player1.TotalWins;
-    //linkToP2Wins = ^vGameField.Player2.TotalWins;    
+       
   }
 
   $rect <0,330,200,370>
@@ -89,7 +89,6 @@ class Application : Core::Root
   $rect <270,80,470,120>
   slot onTouchResetBtn
   {
-    //TRYING
     Remove( vGameField);
     vGameField = new Game::GameField;
     Add( vGameField, 180 );
@@ -100,10 +99,7 @@ class Application : Core::Root
   }
 
   $rect <20,20,160,60>
-  object Game::GameTitle GameTitleFull;
-
-  $rect <20,20,160,60>
-  object Views::Rectangle Rectangle
+  object Views::Rectangle Background
   {
     preset StackingPriority = 0;
     preset Bounds = <0,0,240,320>;
@@ -119,6 +115,12 @@ class Application : Core::Root
 
   $rect <270,40,470,80>
   var Game::GameField vGameField = GameField;
+
+  $rect <20,20,160,60>
+  object Core::WipeTouchHandler WipeTouchHandler
+  {
+    preset Bounds = <0,239,240,319>;
+  }
 
   $rect <20,20,160,60>
   object WidgetSet::PushButton ResetBtn

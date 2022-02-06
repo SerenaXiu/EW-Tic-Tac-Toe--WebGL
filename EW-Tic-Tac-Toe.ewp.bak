@@ -149,3 +149,22 @@ unit Application
 {
   attr Directory = .\;
 }
+
+// This is a profile member for the project. This profile controls the code generation \
+// for the target system.
+$rect <550,240,750,280>
+profile WebGL : Tara.WebGL.RGBA8888
+{
+  attr ScreenSize = <240,320>;
+  attr Optimization = High;
+  attr ApplicationClass = Application::Application;
+  attr CleanOutputDirectories = true;
+  attr FontConversion = Windows;
+  attr Verbose = false;
+  attr PostProcess = ..\..\Application\Project\STM32CubeIDE\STM32F429-Discovery\STM32CubeIDE_ew_post_process.cmd;
+  attr OutputDirectory = C:\0_FH\RTOS\STM32F429-Discovery\Application\WebGL;
+  attr Obfuscation = true;
+
+  $rect <10,10,154,50>
+  macro Author = "Dipl. Ing. Paul Banach and Dipl. Ing. Manfred Schweyer, Copyright (C) TARA Systems GmbH";
+}
