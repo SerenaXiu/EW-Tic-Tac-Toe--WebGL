@@ -33,7 +33,9 @@ class GameScreen : Core::Group
   {
       // Regarding wins display
     attachobserver onUpdateP1Wins, vGameField.Player1;
-    attachobserver onUpdateP2Wins, vGameField.Player2;  
+    attachobserver onUpdateP2Wins, vGameField.Player2;
+
+    //ResetBtn.OnActivate = onTouchResetBtn;  
 
 
        
@@ -82,12 +84,11 @@ class GameScreen : Core::Group
   var Game::GameField vGameField = GameField;
 
   $rect <20,20,160,60>
-  object WidgetSet::PushButton ResetBtn
+  object Game::PushButton ResetBtn
   {
-    preset Bounds = <52,269,189,306>;
-    preset OnPress = onTouchResetBtn;
-    preset Label = "Reset";
-    preset Appearance = WidgetSet::PushButton_Medium;
+    preset Bounds = <62,269,178,304>;
+    preset OnActivate = onTouchResetBtn;
+    preset BtnText = "Reset";
   }
 
   $rect <20,20,160,60>
@@ -179,8 +180,9 @@ class Application : Core::Root
                    Effects::ShowHideCentered, Effects::ShowHideCentered, null /*method called when presented*/, null, false );
 
     vGameTitleFull.SimpleTouchHandler.OnPress =   DismissScreenSaver;
-
     vGameScreen.WipeTouchHandler.OnBottom = StartScreenSaver;
+    vOtherScreen.WipeTouchHandler.OnBottom = StartScreenSaver;
+
     vGameScreen.WipeTouchHandler.OnLeft = onSwipeL;
     vOtherScreen.WipeTouchHandler.OnRight = onSwipeR;
 
@@ -193,7 +195,7 @@ class Application : Core::Root
       for ( col = 0; col < 3;  col++ )
         vGameScreen.vGameField.aFieldItems[row,col].SimpleTouchHandler.OnEnter = ResetTimer;
     vGameTitleFull.SimpleTouchHandler.OnEnter = ResetTimer;
-    vGameScreen.ResetBtn.OnEnter = ResetTimer; 
+
 
     attachobserver ResetTimer, null, 1251;
 
@@ -261,13 +263,10 @@ class Application : Core::Root
     TimerScreenSaver.Enabled = true;
   }
 
-  $rect <510,110,710,150>
-  var Game::GameTitle vGameTitleFull = GameTitle;
-
-  $rect <510,30,710,70>
+  $rect <490,170,690,210>
   var Application::OtherScreen vOtherScreen = Application::OtherScreen1;
 
-  $rect <510,220,710,260>
+  $rect <720,239,920,279>
   slot onSwipeR
   {
       trace "swiped right";
@@ -282,16 +281,11 @@ class Application : Core::Root
 
   }
 
-  $rect <510,69,710,109>
+  $rect <490,209,690,249>
   var Application::GameScreen vGameScreen = Application::GameScreen1;
 
-  $rect <20,20,160,60>
-  object Game::GameTitle GameTitle
-  {
-    preset Bounds = <0,0,240,320>;
-    preset Title = "Welcome!";
-    preset Subtitle = "a simple demonstration what you can do with EmWiz";
-  }
+  $rect <490,250,690,290>
+  var Game::GameTitle vGameTitleFull = GameTitle;
 
   $rect <730,50,930,90>
   property int32 Property;
@@ -317,7 +311,7 @@ class Application : Core::Root
     return pure Property;
   }
 
-  $rect <510,180,710,220>
+  $rect <720,199,920,239>
   slot onSwipeL
   {
       trace "swiped left";
@@ -365,6 +359,14 @@ class Application : Core::Root
 
   $rect <270,350,470,390>
   var bool isGameScreen = true;
+
+  $rect <20,20,160,60>
+  object Game::GameTitle GameTitle
+  {
+    preset Bounds = <0,0,240,320>;
+    preset Title = "Welcome!";
+    preset Subtitle = "a simple demonstration what you can do with EmWiz";
+  }
 }
 
 $rect <490,30,690,70>

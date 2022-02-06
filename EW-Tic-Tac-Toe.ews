@@ -4,9 +4,9 @@ attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::Application.onSwipeL;
-attr codeSelEnd = <33,7>;
-attr codeSelStart = <33,7>;
+attr codeInspector = Application::Application.Init;
+attr codeSelEnd = <55,7>;
+attr codeSelStart = <55,7>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = false;
 attr extractDoc_ClassOverview = true;
@@ -72,10 +72,11 @@ view class Application::GameScreen
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeSelEnd = <27,1>;
-  attr codeSelStart = <27,1>;
+  attr codeInspector = Init;
+  attr codeSelEnd = <2,4>;
+  attr codeSelStart = <2,4>;
   attr enableWireMode = false;
-  attr scrollTo = <-118,-51>;
+  attr scrollTo = <-102,45>;
   attr zoom = 0.75;
 }
 
@@ -83,9 +84,9 @@ view class Application::Application
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = onSwipeL;
-  attr codeSelEnd = <33,7>;
-  attr codeSelStart = <33,7>;
+  attr codeInspector = Init;
+  attr codeSelEnd = <55,7>;
+  attr codeSelStart = <55,7>;
   attr enableWireMode = false;
   attr scrollTo = <-30,-20>;
   attr zoom = 0.75;
@@ -100,5 +101,17 @@ view class Game::GameTitle
   attr codeSelStart = <3,6>;
   attr enableWireMode = false;
   attr scrollTo = <-135,44>;
+  attr zoom = 0.75;
+}
+
+view class Game::GameField
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = mChangeCurrentPlayer;
+  attr codeSelEnd = <20,7>;
+  attr codeSelStart = <20,7>;
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
   attr zoom = 0.75;
 }
