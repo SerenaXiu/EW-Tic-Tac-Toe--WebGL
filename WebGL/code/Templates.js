@@ -28,10 +28,10 @@ var EmWiApp;if(!EmWiApp)throw new Error("The application file '_project.js' isn'
 );if(EmWiApp.uR)throw new Error("The unit file 'Templates.js' included twice!");
 EmWiApp.uR=(function(){var B=EmWiApp;var C={};
 
-C.DQ={_Init:function(aArg){this.__proto__=C.DQ;B.gx++;},_Done:function(){this.__proto__=
+C.D7={_Init:function(aArg){this.__proto__=C.D7;B.gx++;},_Done:function(){this.__proto__=
 null;B.gx--;},_ReInit:function(){},_Mark:function(E){var A;if((A=this.T)&&(A._cycle
 !=E))A._Mark(A._cycle=E);},T:null,_cycle:0,_observers:null,_className:"Templates::DeviceClass"
 };
-C._Init=function(){};C._ReInit=function(){};C.BY=function(E){};return C;})();
+C._Init=function(){};C._ReInit=function(){};C.B6=function(E){};return C;})();
 
 /* Embedded Wizard */

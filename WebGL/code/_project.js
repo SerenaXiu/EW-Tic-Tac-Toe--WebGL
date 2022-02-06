@@ -28,12 +28,12 @@ var EmWiCompr_11_00;var EmWiApp;if(!EmWiCompr_11_00)throw new Error("The Embedde
 );if(EmWiApp)throw new Error("The application file '_project.js' included twice!"
 );EmWiApp=(function(){var B={__proto__:EmWiCompr_11_00};
 B.Default=0;
-B.ue=[240,320];B.nf=function(){return B.ii.H6;};B.sK="";B.lp=0;B.uE=0;B.hx=[];B._Init=
+B.ue=[240,320];B.nf=function(){return B.ii.IE;};B.sK="";B.lp=0;B.uE=0;B.hx=[];B._Init=
 function(){B.Core._Init();B.uQ._Init();B.Graphics._Init();B.uO._Init();B.uP._Init(
 );B.Game._Init();B.uR._Init();B.uS._Init();B.ii._Init();this.__proto__._Init.apply(
 this,arguments);};B._ReInit=function(){B.Core._ReInit();B.uQ._ReInit();B.Graphics.
 _ReInit();B.uO._ReInit();B.uP._ReInit();B.Game._ReInit();B.uR._ReInit();B.uS._ReInit(
-);B.ii._ReInit();};B.uc=function(E){B.Core.BY(E);B.uQ.BY(E);B.Graphics.BY(E);B.uO.
-BY(E);B.uP.BY(E);B.Game.BY(E);B.uR.BY(E);B.uS.BY(E);B.ii.BY(E);};return B;})();
+);B.ii._ReInit();};B.uc=function(E){B.Core.B6(E);B.uQ.B6(E);B.Graphics.B6(E);B.uO.
+B6(E);B.uP.B6(E);B.Game.B6(E);B.uR.B6(E);B.uS.B6(E);B.ii.B6(E);};return B;})();
 
 /* Embedded Wizard */

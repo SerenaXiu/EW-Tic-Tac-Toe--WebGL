@@ -516,6 +516,14 @@ class OtherScreen : Core::Group
     preset OnBottom;
     preset NoOfFingers = 1;
   }
+
+  $rect <20,20,160,60>
+  object Views::Text Text
+  {
+    preset Bounds = <29,119,213,182>;
+    preset String = "Text";
+    preset Font = Resources::FontExtraLarge;
+  }
 }
 
 $rect <250,70,450,110>

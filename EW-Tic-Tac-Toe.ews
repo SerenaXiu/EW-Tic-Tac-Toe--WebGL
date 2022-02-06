@@ -4,9 +4,9 @@ attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::Application.DismissScreenSaver;
-attr codeSelEnd = <30,8>;
-attr codeSelStart = <30,8>;
+attr codeInspector = Application::Application.OnSetProperty;
+attr codeSelEnd = <0,0>;
+attr codeSelStart = <0,0>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = true;
 attr extractDoc_ClassOverview = true;
@@ -22,7 +22,7 @@ attr extractDoc_Variants = false;
 attr generateClut_ReservedColors = 0;
 attr heapMonitor_Show = false;
 attr language = Default;
-attr profile = STM32F429;
+attr profile = WebGL;
 attr profilerMonitor_Show = false;
 attr search_CaseSensitive = false;
 attr search_IgnoreDescription = false;
@@ -84,11 +84,11 @@ view class Application::Application
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = DismissScreenSaver;
-  attr codeSelEnd = <30,8>;
-  attr codeSelStart = <30,8>;
+  attr codeInspector = OnSetProperty;
+  attr codeSelEnd = <0,0>;
+  attr codeSelStart = <0,0>;
   attr enableWireMode = false;
-  attr scrollTo = <-54,-39>;
+  attr scrollTo = <-54,-20>;
   attr zoom = 0.75;
 }
 
@@ -107,6 +107,6 @@ view class Game::GameTitle
 view class Application::OtherScreen
 {
   attr enableWireMode = false;
-  attr scrollTo = <-7,-17>;
+  attr scrollTo = <-7,-49>;
   attr zoom = 1.0;
 }

@@ -31,7 +31,6 @@ class GameScreen : Core::Group
   $rect <280,0,460,40>
   inherited method Init()
   {
-
       // Regarding wins display
     attachobserver onUpdateP1Wins, vGameField.Player1;
     attachobserver onUpdateP2Wins, vGameField.Player2;  
@@ -224,7 +223,7 @@ class Application : Core::Root
   object Core::Timer TimerScreenSaver
   {
     preset OnTrigger = StartScreenSaver;
-    preset Period = 1000;
+    preset Period = 20000;
     preset Begin = 0;
     preset Enabled = false;
   }
@@ -320,7 +319,6 @@ class Application : Core::Root
   $rect <510,180,710,220>
   slot onSwipeL
   {
-
       trace "swiped left";
       SwitchToDialog( vOtherScreen, Effects::SlideLeftCentered, Effects::SlideRightCentered, null, Effects::SlideRightCentered, null,null,null, null, null, false );
       isGameScreen = false;
