@@ -1,14 +1,14 @@
 $version 1.0
 
-attr active = Game::FieldItem;
+attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Game::FieldItem.OnTouchFieldEvent;
-attr codeSelEnd = <2,0>;
-attr codeSelStart = <2,0>;
+attr codeInspector = Application::Application.DismissScreenSaver;
+attr codeSelEnd = <30,8>;
+attr codeSelStart = <30,8>;
 attr connectInspectors = false;
-attr debug_TrackUpdates = false;
+attr debug_TrackUpdates = true;
 attr extractDoc_ClassOverview = true;
 attr extractDoc_DeleteOldFiles = true;
 attr extractDoc_Destination = ./HtmlDoc;
@@ -36,21 +36,29 @@ view Project
   attr enableGrid = true;
   attr enableWireMode = false;
   attr grid = 10;
-  attr scrollTo = <-107,-80>;
+  attr scrollTo = <-64,-29>;
   attr zoom = 0.75;
+}
+
+view unit Core
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-145,-60>;
+  attr zoom = 0.75;
+}
+
+view unit Resources
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-7>;
+  attr zoom = 1.0;
 }
 
 view unit Game
 {
-  attr codeColSelect = false;
-  attr codeFirstPos = <0,0>;
-  attr codeSelEnd = <12,11>;
-  attr codeSelStart = <12,11>;
-  attr enableGrid = true;
   attr enableWireMode = false;
-  attr grid = 10;
-  attr scrollTo = <80,148>;
-  attr zoom = 1.0;
+  attr scrollTo = <-55,85>;
+  attr zoom = 0.75;
 }
 
 view unit Application
@@ -60,47 +68,45 @@ view unit Application
   attr zoom = 1.0;
 }
 
-view class Game::GameField
+view class Application::GameScreen
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
   attr codeInspector = Init;
-  attr codeSelEnd = <55,7>;
-  attr codeSelStart = <55,7>;
+  attr codeSelEnd = <0,4>;
+  attr codeSelStart = <0,4>;
   attr enableWireMode = false;
-  attr scrollTo = <105,-23>;
+  attr scrollTo = <-118,-51>;
   attr zoom = 0.75;
 }
 
 view class Application::Application
 {
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = DismissScreenSaver;
+  attr codeSelEnd = <30,8>;
+  attr codeSelStart = <30,8>;
   attr enableWireMode = false;
-  attr scrollTo = <185,-39>;
-  attr zoom = 1.0;
-}
-
-view class Game::Players
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
+  attr scrollTo = <-54,-39>;
+  attr zoom = 0.75;
 }
 
 view class Game::GameTitle
 {
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
-}
-
-view class Game::FieldItem
-{
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = OnTouchFieldEvent;
-  attr codeSelEnd = <2,0>;
-  attr codeSelStart = <2,0>;
+  attr codeInspector = smDismiss;
+  attr codeSelEnd = <3,6>;
+  attr codeSelStart = <3,6>;
   attr enableWireMode = false;
-  attr scrollTo = <-151,-23>;
+  attr scrollTo = <-135,44>;
+  attr zoom = 0.75;
+}
+
+view class Application::OtherScreen
+{
+  attr enableWireMode = false;
+  attr scrollTo = <-7,-17>;
   attr zoom = 1.0;
 }

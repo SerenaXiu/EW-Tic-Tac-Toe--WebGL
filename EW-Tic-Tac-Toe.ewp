@@ -56,7 +56,7 @@ note group Note1
 // Profile Configuration
 note group Note2
 {
-  attr Bounds = <530,150,770,260>;
+  attr Bounds = <279,170,519,320>;
 }
 
 // Languages
@@ -93,7 +93,7 @@ note legend Note4
 // Project Units
 note group Note5
 {
-  attr Bounds = <279,-10,519,330>;
+  attr Bounds = <279,-10,519,150>;
 }
 
 // Welcome to Embedded Wizard!
@@ -112,7 +112,7 @@ note legend Note
 
 // This is a profile member for the project. This profile controls the code generation \
 // for the target system.
-$rect <550,200,750,240>
+$rect <299,220,499,260>
 profile STM32F429 : STM.STM32.RGB565
 {
   attr ScreenOrientation = Normal;
@@ -152,7 +152,7 @@ unit Application
 
 // This is a profile member for the project. This profile controls the code generation \
 // for the target system.
-$rect <550,240,750,280>
+$rect <299,260,499,300>
 profile WebGL : Tara.WebGL.RGBA8888
 {
   attr ScreenSize = <240,320>;

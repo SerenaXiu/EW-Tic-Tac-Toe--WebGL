@@ -7,7 +7,6 @@ class GameField : Core::Group
   $rect <271,0,450,40>
   inherited method Init()
   {
-
     var int32 col = 0;
     var int32 row = 0;
 
@@ -1537,8 +1536,8 @@ class GameTitle : Core::Group
 
     // Bounds = <0,0,240,52>
 
-    if ( IsDialog(false))
-      Owner.DismissDialog( this, null, null, null, null, null, false );
+    //if ( IsDialog(false))
+     // Owner.DismissDialog( this, null, null, null, null, null, false );
   }
 
   $rect <270,0,470,40>
@@ -1569,22 +1568,78 @@ class GameTitle : Core::Group
   }
 
   $rect <20,20,160,60>
-  object Views::Text Creator
+  object Views::Text vSubtitle
   {
-    preset Bounds = <0,177,240,207>;
-    preset String = "by Serena";
+    preset Bounds = <39,177,202,255>;
+    preset WrapText = true;
+    preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertTop];
+    preset String = "Subtitle";
     preset Font = Resources::FontSmall;
     preset Color = Game::Mint;
   }
 
   $rect <20,20,160,60>
-  object Views::Text Title
+  object Views::Text vTitle
   {
-    preset Bounds = <0,0,240,320>;
-    preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
-    preset String = "Tic Tac Toe";
+    preset Bounds = <39,64,213,165>;
+    preset AutoSize = false;
+    preset WrapText = true;
+    preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertBottom];
+    preset String = "Title";
     preset Font = Resources::FontLarge;
     preset Color = Game::Mint;
+  }
+
+  $rect <279,340,479,380>
+  property string Title;
+
+  $rect <279,380,479,420>
+  onset Title
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Title == value )
+      return;
+
+    // Remember the property's new value.
+    pure Title = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+
+    vTitle.String = Title;
+  }
+
+  $rect <279,420,479,460>
+  onget Title
+  {
+    return pure Title;
+  }
+
+  $rect <510,340,710,380>
+  property string Subtitle;
+
+  $rect <510,380,710,420>
+  onset Subtitle
+  {
+    // The value doesn't change - nothing to do.
+    if ( pure Subtitle == value )
+      return;
+
+    // Remember the property's new value.
+    pure Subtitle = value;
+
+    // TO DO:
+    // 
+    // Now you can handle the alternation of the property.
+
+    vSubtitle.String = Subtitle;
+  }
+
+  $rect <510,420,710,460>
+  onget Subtitle
+  {
+    return pure Subtitle;
   }
 
   $reorder PresentDialog 1
@@ -1631,7 +1686,7 @@ class GameTitle : Core::Group
 
 // The small version of the default font resource. The resource is using 'Roboto' \
 // TrueType font with 18 pixel height.
-$rect <490,380,710,420>
+$rect <480,370,700,410>
 $output false
 resource Resources::Font FontSmall
 {
