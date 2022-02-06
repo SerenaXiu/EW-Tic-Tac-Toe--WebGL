@@ -4,11 +4,11 @@ attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::Application.Init;
-attr codeSelEnd = <28,1>;
-attr codeSelStart = <28,1>;
+attr codeInspector = Application::Application.Slot;
+attr codeSelEnd = <29,14>;
+attr codeSelStart = <29,14>;
 attr connectInspectors = false;
-attr debug_TrackUpdates = false;
+attr debug_TrackUpdates = true;
 attr extractDoc_ClassOverview = true;
 attr extractDoc_DeleteOldFiles = true;
 attr extractDoc_Destination = ./HtmlDoc;
@@ -22,7 +22,7 @@ attr extractDoc_Variants = false;
 attr generateClut_ReservedColors = 0;
 attr heapMonitor_Show = false;
 attr language = Default;
-attr profile = WebGL;
+attr profile = STM32F429;
 attr profilerMonitor_Show = false;
 attr search_CaseSensitive = false;
 attr search_IgnoreDescription = false;
@@ -57,15 +57,8 @@ view unit Resources
 view unit Game
 {
   attr enableWireMode = false;
-  attr scrollTo = <185,85>;
+  attr scrollTo = <-55,85>;
   attr zoom = 0.75;
-}
-
-view class Game::GameField
-{
-  attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
 }
 
 view unit Application
@@ -75,21 +68,45 @@ view unit Application
   attr zoom = 1.0;
 }
 
-view class Application::Application
+view class Application::GameScreen
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
   attr codeInspector = Init;
-  attr codeSelEnd = <28,1>;
-  attr codeSelStart = <28,1>;
+  attr codeSelEnd = <0,4>;
+  attr codeSelStart = <0,4>;
   attr enableWireMode = false;
-  attr scrollTo = <-7,-7>;
-  attr zoom = 1.0;
+  attr scrollTo = <-118,-51>;
+  attr zoom = 0.75;
 }
 
-view class Core::View
+view class Application::Application
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = Slot;
+  attr codeSelEnd = <29,14>;
+  attr codeSelStart = <29,14>;
+  attr enableWireMode = false;
+  attr scrollTo = <-54,-39>;
+  attr zoom = 0.75;
+}
+
+view class Game::GameTitle
+{
+  attr codeColSelect = false;
+  attr codeFirstPos = <0,0>;
+  attr codeInspector = smDismiss;
+  attr codeSelEnd = <3,6>;
+  attr codeSelStart = <3,6>;
+  attr enableWireMode = false;
+  attr scrollTo = <-181,-52>;
+  attr zoom = 0.75;
+}
+
+view class Application::OtherScreen
 {
   attr enableWireMode = false;
-  attr scrollTo = <-7,-103>;
+  attr scrollTo = <-7,-17>;
   attr zoom = 1.0;
 }
