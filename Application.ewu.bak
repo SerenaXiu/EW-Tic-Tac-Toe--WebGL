@@ -172,14 +172,14 @@ $rect <20,30,220,70>
 $output false
 class Application : Core::Root
 {
-  $rect <280,0,460,40>
+  $rect <270,30,470,70>
   inherited method Init()
   {
     PresentDialog( vGameScreen, null, null, null, null, null, null, null, null, false );
     PresentDialog( vGameTitleFull, Effects::SlideDownCentered, Effects::SlideUpCentered, null, null, 
                    Effects::ShowHideCentered, Effects::ShowHideCentered, null /*method called when presented*/, null, false );
 
-    vGameTitleFull.SimpleTouchHandler.OnPress =   Slot;
+    vGameTitleFull.SimpleTouchHandler.OnPress =   DismissScreenSaver;
 
     vGameScreen.WipeTouchHandler.OnBottom = StartScreenSaver;
     vGameScreen.WipeTouchHandler.OnLeft = onSwipeL;
@@ -202,16 +202,16 @@ class Application : Core::Root
        
   }
 
-  $rect <0,330,200,370>
+  $rect <270,-9,470,31>
   inherited property Bounds = <0,0,240,320>;
 
   // Screensaver
   note group nScreensaver
   {
-    attr Bounds = <270,130,490,330>;
+    attr Bounds = <260,119,480,400>;
   }
 
-  $rect <281,160,481,200>
+  $rect <271,149,471,189>
   slot StartTimer
   {
     /*if()
@@ -220,7 +220,7 @@ class Application : Core::Root
     TimerScreenSaver.Enabled = true;  // }
   }
 
-  $rect <279,240,479,280>
+  $rect <269,229,469,269>
   object Core::Timer TimerScreenSaver
   {
     preset OnTrigger = StartScreenSaver;
@@ -230,7 +230,7 @@ class Application : Core::Root
   }
 
   // This is a slot method.
-  $rect <279,279,479,319>
+  $rect <269,268,469,308>
   slot StartScreenSaver
   {
     trace sender, "has invoked Screensaver!";
@@ -248,7 +248,7 @@ class Application : Core::Root
     preset AlphaBlended = true;
   }
 
-  $rect <279,200,479,240>
+  $rect <269,189,469,229>
   slot ResetTimer
   {
     //Text.String = "Pressed!!!!";
@@ -261,10 +261,10 @@ class Application : Core::Root
     TimerScreenSaver.Enabled = true;
   }
 
-  $rect <480,80,680,120>
+  $rect <510,110,710,150>
   var Game::GameTitle vGameTitleFull = GameTitle;
 
-  $rect <480,0,680,40>
+  $rect <510,30,710,70>
   var Application::OtherScreen vOtherScreen = Application::OtherScreen1;
 
   $rect <510,220,710,260>
@@ -272,6 +272,7 @@ class Application : Core::Root
   {
       trace "swiped right";
       SwitchToDialog( vGameScreen, Effects::SlideRightCentered, Effects::SlideLeftCentered, null, Effects::SlideLeftCentered, null,null,null, null, null, false );
+      isGameScreen = true;
       vGameTitleFull.Title = "Tic-Tac-Toe";
       ColorEffect.Enabled = false;
       vGameTitleFull.Subtitle = "by Serena";
@@ -281,7 +282,7 @@ class Application : Core::Root
 
   }
 
-  $rect <480,39,680,79>
+  $rect <510,69,710,109>
   var Application::GameScreen vGameScreen = Application::GameScreen1;
 
   $rect <20,20,160,60>
@@ -322,6 +323,7 @@ class Application : Core::Root
 
       trace "swiped left";
       SwitchToDialog( vOtherScreen, Effects::SlideLeftCentered, Effects::SlideRightCentered, null, Effects::SlideRightCentered, null,null,null, null, null, false );
+      isGameScreen = false;
       vGameTitleFull.Title = "Other ScreenSaver";
       vGameTitleFull.Subtitle = "touch to dismiss";
       ColorEffect.Enabled = true;
@@ -332,8 +334,8 @@ class Application : Core::Root
 
   }
 
-  $rect <513,320,713,360>
-  slot Slot
+  $rect <270,310,470,350>
+  slot DismissScreenSaver
   {
     sender; /* the method is called from the sender object */
 
@@ -346,24 +348,24 @@ class Application : Core::Root
       ColorEffect.Enabled = false;
       vGameTitleFull.Subtitle = "by Serena";
     }
-    else{
+    if (!isGameScreen){
       vGameTitleFull.Title = "Other ScreenSaver";
       vGameTitleFull.Subtitle = "touch to dismiss";
       ColorEffect.Enabled = true;
     }
   }
 
-  $rect <730,270,930,310>
+  $rect <270,400,470,440>
   object Effects::ColorEffect ColorEffect
   {
-    preset CycleDuration = 5000;
+    preset CycleDuration = 3000;
     preset Enabled = false;
     preset Value2 = Game::Mint;
     preset Outlet = ^vGameTitleFull.vSubtitle.Color;
   }
 
-  $rect <270,90,470,130>
-  var bool isGameScreen;
+  $rect <270,350,470,390>
+  var bool isGameScreen = true;
 }
 
 $rect <490,30,690,70>

@@ -1581,8 +1581,10 @@ class GameTitle : Core::Group
   $rect <20,20,160,60>
   object Views::Text vTitle
   {
-    preset Bounds = <0,118,240,177>;
-    preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertCenter];
+    preset Bounds = <39,64,202,165>;
+    preset AutoSize = false;
+    preset WrapText = true;
+    preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertBottom];
     preset String = "Title";
     preset Font = Resources::FontLarge;
     preset Color = Game::Mint;

@@ -1581,7 +1581,7 @@ class GameTitle : Core::Group
   $rect <20,20,160,60>
   object Views::Text vTitle
   {
-    preset Bounds = <39,64,202,165>;
+    preset Bounds = <39,64,213,165>;
     preset AutoSize = false;
     preset WrapText = true;
     preset Alignment = Views::TextAlignment[AlignHorzCenter, AlignVertBottom];

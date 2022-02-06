@@ -4,9 +4,9 @@ attr active = Application::Application;
 attr callStackMonitor_Show = false;
 attr codeColSelect = false;
 attr codeFirstPos = <0,0>;
-attr codeInspector = Application::Application.Slot;
-attr codeSelEnd = <29,14>;
-attr codeSelStart = <29,14>;
+attr codeInspector = Application::Application.DismissScreenSaver;
+attr codeSelEnd = <30,8>;
+attr codeSelStart = <30,8>;
 attr connectInspectors = false;
 attr debug_TrackUpdates = true;
 attr extractDoc_ClassOverview = true;
@@ -84,9 +84,9 @@ view class Application::Application
 {
   attr codeColSelect = false;
   attr codeFirstPos = <0,0>;
-  attr codeInspector = Slot;
-  attr codeSelEnd = <29,14>;
-  attr codeSelStart = <29,14>;
+  attr codeInspector = DismissScreenSaver;
+  attr codeSelEnd = <30,8>;
+  attr codeSelStart = <30,8>;
   attr enableWireMode = false;
   attr scrollTo = <-54,-39>;
   attr zoom = 0.75;
@@ -100,7 +100,7 @@ view class Game::GameTitle
   attr codeSelEnd = <3,6>;
   attr codeSelStart = <3,6>;
   attr enableWireMode = false;
-  attr scrollTo = <-181,-52>;
+  attr scrollTo = <-135,44>;
   attr zoom = 0.75;
 }
 
